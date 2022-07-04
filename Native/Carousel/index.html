@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="cos">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>MediaWiki 轮播图</title>
+    <style>
+    body{
+        margin: 0;
+        padding: 0px;
+    }
+    #carousel{
+        box-sizing: border-box;
+        border-radius: 8px;
+        margin: auto; /* 居中 */
+        position: relative; /* 相对定位 */
+        overflow: hidden; /* 超出隐藏 */
+    }
+    #carousel img{
+        position: absolute; /* 绝对定位 使图片堆叠 */
+        transition: all 1s; /* 动画 */
+        opacity: 0; /* 隐藏 */
+    }
+    #carousel .imgActive{
+        opacity: 1 ; /* 显示图片 最高优先级 */
+    }
+
+    /* 控制按钮的样式 */
+    .leftArrow,
+    .rightArrow{
+        position: absolute;
+        left: 5px;
+        top: 43%;
+        width: 25px;
+        height: 30px;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.7;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    .rightArrow{
+        left: auto;
+        right: 5px;
+    }
+    .sliderBtn{
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+        z-index: 1000;
+    }
+    .dot{
+        border-radius: 50%;
+        box-sizing: border-box;
+        width: 8px;
+        height: 8px;
+        margin: 0px 4px 6px 4px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid #FFFFFF;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    }
+    .dotActive{
+        background: #FFFFFF;
+    }
+    </style>
+</head>
+<body>
+    <div id="carousel">
+        <img src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg" alt="imgage-1">
+        <img src="https://tva4.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg" alt="imgage-2">
+        <img src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitht3xtj20zk0m8k5v.jpg" alt="imgage-3">
+        <img src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitspjpbj20zk0m81ky.jpg" alt="imgage-4">
+        <!-- 按钮组 -->
+        <div class="icon leftArrow"></div>
+        <div class="icon rightArrow"></div>
+        <div class="sliderBtn"></div>
+    </div>
+    
+    <script type="text/javascript">
+        let imgArr = []; // 图片数组
+        let curIndex = 0; // 当前显示图片
+        let timer = null; // 定时器
+        let btnList = []; // 右下角切换按钮组
+        
+        function slide(targetIndex = curIndex + 1){
+            curIndex = targetIndex % imgArr.length; // 获取当前index
+            imgArr.forEach((v) => v.className = "" ); // 设置其他图片隐藏
+            imgArr[curIndex] .className = "imgActive"; // 设置当前index图片显示
+            btnList.forEach(v => v.className = "dot") // 设置其他按钮为灰色
+            btnList[curIndex] .className = "dot dotActive"; // 设置当前按钮为蓝色
+        }
+
+        function createBtnGroup(carousel, config){
+            const leftArrow = carousel.querySelector(".leftArrow");
+            const rightArrow = carousel.querySelector(".rightArrow");
+            leftArrow.addEventListener('click',(e) => { 
+                clearInterval(timer); // 清除定时器，避免手动切换时干扰
+                slide(curIndex-1); // 允许点击则切换上一张
+                timer = setInterval(() => {slide()},config.interval); // 重设定时器
+            }) 
+            rightArrow.addEventListener('click',(e) => {
+                clearInterval(timer); 
+                slide(curIndex+1);
+                timer = setInterval(() => {slide()},config.interval);
+            }) 
+            const sliderBtn = carousel.querySelector(".sliderBtn");; // 获取按钮容器的引用
+            imgArr.forEach((v,i) => {
+                let btn = document.createElement("div"); // 制作按钮
+                btn.className = i === 0 ?  "dot dotActive" : "dot"; // 初设蓝色与灰色按钮样式
+                btn.addEventListener('click',(e) => {
+                    clearInterval(timer); // 清除定时器，避免手动切换时干扰
+                    slide(i); // // 允许点击则切换
+                    timer = setInterval(() => {slide()},config.interval); // 重设定时器
+                }) 
+                btnList.push(btn); // 添加按钮到按钮组
+                sliderBtn.appendChild(btn); // 追加按钮到按钮容器
+            })
+        }
+
+        function eventDispose(carousel,config){
+            document.addEventListener('visibilitychange',function(){ // 浏览器切换页面会导致动画出现问题，监听页面切换
+                if(document.visibilityState=='hidden') clearInterval(timer); // 页面隐藏清除定时器
+                else timer = setInterval(() => {slide()},config.interval); // 重设定时器
+            });
+            carousel.addEventListener('mouseover',function(){ // 鼠标移动到容器则不切换动画，停止计时器
+                clearInterval(timer); // 页面隐藏清除定时器
+            });
+            carousel.addEventListener('mouseleave',function(){ // 鼠标移出容器则开始动画
+                timer = setInterval(() => {slide()},config.interval); // 重设定时器
+            });
+        }
+
+
+        (function start() {
+            var config = {
+                width: "600px", // 配置高度
+                height: "330px", // 配置高度
+                interval: 5000 // 配置轮播时间间隔
+            }
+            var carousel = document.getElementById("carousel"); //获取容器对象的引用
+            carousel.style.height = config.height; // 将轮播容器高度设定
+            carousel.style.width = config.width; // 将轮播容器高度设定
+            const imgList = carousel.querySelectorAll("#carousel img"); // 获取图片对象的引用
+            document.querySelectorAll("#carousel img").forEach((v,i) => {
+                imgArr.push(v); // 获取所有图片组成数组
+                v.className = i === 0 ?  "imgActive" : "";
+                v.style.width = config.width; // 将图片宽度设定
+            }); 
+            eventDispose(carousel,config); // 对一些浏览器事件处理
+            createBtnGroup(carousel,config); // 按钮组的处理
+            timer = setInterval(() => {slide()},config.interval); // 设置定时器定时切换
+        })();
+    </script>
+</body>
+</html>
