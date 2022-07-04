@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="cos">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>MediaWiki 轮播图</title>
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0px;
+        }
+        #carousel{
+            margin: auto; /* 居中 */
+            width: 600px; /* 设置宽度 */
+            position: relative; /* 相对定位 */
+            overflow: hidden; /* 超出隐藏 */
+            height: 300px;
+        }
+        #carousel img{
+            width: 600px; /* 设定大小 按比例缩放 */
+        }
+        #carousel > ul {
+            display: flex; /* 图片处理为一行 */
+            position: absolute; /* 设置绝对定位，实现相对于#carousel的绝对定位 */
+        }
+        #carousel > ul,
+        #carousel > ul > li{
+            padding: 0;
+            margin: 0;
+            list-style:none; 
+        }
+    
+        #carousel > ul{
+             animation: switch 10s ease 1s infinite alternate; /* 设定动画播放 */
+        }
+    
+        #carousel > ul:hover{
+             animation-play-state: paused; /* 暂停动画 */
+        }
+    
+        @keyframes switch{ /* 制定动画规则 */
+            0%,13%{
+                left: 0;
+            }
+            27%,41%{
+                left: -600px;
+            }
+            55%,69%{
+                left: -1200px;
+            }
+            83%,100% {
+                left: -1800px;
+            }
+        }
+    </style>
+</head>
+<body> 
+    <!-- 轮播图容器 -->
+    <div id="carousel">
+        <ul>
+            <li>
+                <a target="_blank" href="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
+                <img src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg" alt="imgage-1">
+            </li>
+            <li><img src="https://tva4.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg" alt="imgage-2"></li>
+            <li><img src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitht3xtj20zk0m8k5v.jpg" alt="imgage-3"></li>
+            <li><img src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitspjpbj20zk0m81ky.jpg" alt="imgage-4"></li>
+            <li><img src="https://tva4.sinaimg.cn/mw690/6833939bly1giciub8ja1j20zk0m81ky.jpg" alt="imgage-5"></li>
+            <li><img src="https://tva4.sinaimg.cn/mw690/6833939bly1giciub8ja1j20zk0m81ky.jpg" alt="imgage-6"></li>
+        </div> 
+    </div>
+</body>
+</html>
