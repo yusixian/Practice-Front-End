@@ -1,21 +1,18 @@
-# 备战23秋招
-大概会包括面经总结、力扣刷题、日常练习等等
-包括每日一题及剑指offer
+# 前端的日常实践总结
+
+大概会包括力扣刷题、日常练习、前端知识点总结等等
 
 # TODO
 
 ## LeetCode
 
-刷题用的是vscode的algorithm插件（非常好用）
+刷题用的是 vscode 的 algorithm 插件（非常好用）
 
-- [x] 剑指offer
-- [ ] 剑指offer专项计划
+- [x] 剑指 offer
+- [x] 剑指 offer 专项计划
 
-## 面试题及面经总结
+## JavaScript
 
-- [ ] HTML&CSS相关
-- [ ] 计算机网络相关
-- [ ] React相关
-- [ ] JavaScript相关 (JavaScript相关)
-- [ ] 前端工程化/模块化相关 (Module-Learning)
-- [ ] Node.js相关 (NodeJS)
+- [ ] 手写题
+  - [牛客 20 道](https://www.nowcoder.com/exam/oj?page=1&pageSize=50&search=&tab=JS%E7%AF%87&topicId=274)
+  - 日常所得

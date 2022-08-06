@@ -1,0 +1,29 @@
+{
+  "name": "practice-front-end",
+  "version": "1.0.0",
+  "description": "大概会包括面经总结、力扣刷题、日常练习等等\r 包括每日一题及剑指offer",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusixian/Practice-Front-End.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yusixian/Practice-Front-End/issues"
+  },
+  "homepage": "https://github.com/yusixian/Practice-Front-End#readme",
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "27.5.1",
+    "ts-jest": "27.1.4",
+    "typescript": "4.6.3"
+  },
+  "dependencies": {
+    "prettier": "^2.7.1"
+  }
+}
