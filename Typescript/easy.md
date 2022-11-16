@@ -5,11 +5,13 @@
 - [x] [11・元组转换为对象](https://github.com/type-challenges/type-challenges/blob/main/questions/00011-easy-tuple-to-object/README.zh-CN.md)
 - [x] [14・第一个元素](https://github.com/type-challenges/type-challenges/blob/main/questions/00014-easy-first/README.zh-CN.md)
 - [x] [18・获取元组长度](https://github.com/type-challenges/type-challenges/blob/main/questions/00018-easy-tuple-length/README.zh-CN.md)
-- [ ] [43・Exclude](https://github.com/type-challenges/type-challenges/blob/main/questions/00043-easy-exclude/README.zh-CN.md)
-- [ ] [189・Awaited](https://github.com/type-challenges/type-challenges/blob/main/questions/00189-easy-awaited/README.zh-CN.md)
-- [ ] [268・If](https://github.com/type-challenges/type-challenges/blob/main/questions/00268-easy-if/README.zh-CN.md)
-- [ ] [533・Concat](https://github.com/type-challenges/type-challenges/blob/main/questions/00533-easy-concat/README.zh-CN.md)
-- [ ] [898・Includes](https://github.com/type-challenges/type-challenges/blob/main/questions/00898-easy-includes/README.zh-CN.md)
+
+- [x] [43・Exclude](https://github.com/type-challenges/type-challenges/blob/main/questions/00043-easy-exclude/README.zh-CN.md)
+- [x] [189・Awaited](https://github.com/type-challenges/type-challenges/blob/main/questions/00189-easy-awaited/README.zh-CN.md)
+- [x] [268・If](https://github.com/type-challenges/type-challenges/blob/main/questions/00268-easy-if/README.zh-CN.md)
+- [x] [533・Concat](https://github.com/type-challenges/type-challenges/blob/main/questions/00533-easy-concat/README.zh-CN.md)
+- [x] [898・Includes](https://github.com/type-challenges/type-challenges/blob/main/questions/00898-easy-includes/README.zh-CN.md)
+
 - [ ] [3057・Push](https://github.com/type-challenges/type-challenges/blob/main/questions/03057-easy-push/README.zh-CN.md)
 - [ ] [3060・Unshift](https://github.com/type-challenges/type-challenges/blob/main/questions/03060-easy-unshift/README.zh-CN.md)
 - [ ] [3312・Parameters](https://github.com/type-challenges/type-challenges/blob/main/questions/03312-easy-parameters/README.zh-CN.md)
@@ -79,3 +81,87 @@ type Length<T extends readonly unknown[]> = T['length']
 ```
 
 会抛出 Error 说明得限制传入的类型
+
+## 43・Exclude
+
+- [接受挑战](https://tsch.js.org/43/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?ssl=26&ssc=1&pln=27&pc=1#code/PQKgUABBAsDMEFoIFEAeBjANgVwCYFNJEETSiAjATwgC0ALfRgOwHMIAKAAQC8HmWAlBADEgAO9Aqsojy2AJaYALghlMR2JjID2TIkWF6IgDIzAd246oAPgiAia0Bz8RAAKAJQiBOU0Db8YG--QIvRgCljA84mAgBlMIQDztQAbnQFDFQDt-QBC3NCw8fAgAHgAVABoIAFUzQG8fQGj1QBh-wDF5QFg5QF+AwBe3QFLjQH95QApXQGDtQBpzQGq4wKgiC0A5uUAVAMAIFXyUwFo5QCTjQBM0zOj8wAQjQA0VAsBTc0AQ80ACBMAAOUAqOUAG0ym89ogiQGj5QCDNQCx-oIADK-kAZyJ5SgAHRId8G+wFCABeCABZSjiOAISQA5ABDEEQAA+EBB5EhMJB6BBGXBIIswGAsPh0NhyKIVwuQQsgAp1CAAcRk8jo2HIEEAUHKAU-NANDupzo8nkjxuAC5Mbd0HQAHQAKxugo0ACcWMA4MBeAgAMIAOTAIGAYA1oAgAH1dXr9XqIIADeWigGO5QCAHjqDdbtRA1RqHs8-gCMED8KkMtlvlAUhB8Kh5PgmLgblkIAB+CBMfAAN3wEu5EBSmpAVpt+oggGlbQCr0XVDmn07q7eqZABbR6S+QQR2JADeKAAjtgwZgMmhnugqwBfCAAMwlGlLsM4NYQApbmCDLDewGw8jkNxBDqeiXQYJub29AG0iO38J2ksgmy2kv9AQlQRDcXCEXiUbCIWZUTjEcizE-d6gO-JD8fMKeXXiYE0WvF871RK9EXhJ873fNJP2-X9m3-M9XQvG55AlZQ2BhJhsFLch41xdh2CEL4LBjDQZFwAQMgAMTUTtNCYGCMKw1hcTwgj4zgsAAF0NRTAtCwgQBoOTWQBTa2E9NizAUBOggQAwJUAarkTUAY8jABVvNkOS5XlgH5IVRXFKUZVgYAwSYG4AHd4zlOhFRVcwIBZTTtM5Hk+RuAURTFSVpVlG4NBwectDuJzABezQAsTWMNzdM87yjL8uyHNVdUwCAA)
+
+```typescript
+type MyExclude<T, U> = T extends U ? never : T
+```
+
+这题可能看的人一头雾水，但是可以看看这里：[Distributive Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types)
+
+```typescript
+type ToArray<Type> = Type extends any ? Type[] : never
+// 如果我们将联合类型插入 ToArray，则条件类型将应用于该联合的每个成员。
+type StrArrOrNumArr = ToArray<string | number>
+//   ^type StrArrOrNumArr = string[] | number[]
+```
+
+也就是分别判断 T 中的每个联合类型，是否 extends U
+
+## 189・Awaited
+
+- [接受挑战](https://tsch.js.org/189/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMAcCcEC0ECCB3AhgSwC4FMATSZJM8kgIwE8IBZTAY23wCsIBlbAawHsAnTBAAUAAQC2TFqwDOPAZgCUEAMSAA70CqyqoAO-XuOwz8qygFdsAG1xJsAOxIkVTiIAyMwHduDqIHEFQEGagRCNAG7lASHNAADlAKjkIAAU9AyMIQE-tQEMYwBh-wE34iOj9Q2MkwCx5QBX4wD21cMBvH0Bo9UAgBkAKdQgAFQ4IQFo5ZMDAClcomOyAHlqAPibAELc6iEBTc0B540AH+PSOrLiigfKKwHfowAN5QDztQAbnUrLkwHvlQFO5QHbgwDXldMXPCEBo+R9ALH+AA0zY-C6AUQAPTHFtC3xa6m18L07slVkUIO9Pt9fv9jOcoCQ7ojcDISLgYeCPl8fn8ARAALwzJ5dGS4fh2ADmvQuaNxACV8DJTFZ8fRqBgcARCK9MVCcYCIMBgBASWTbOSEYiLv10oBEY0AGEYjQBXgYA4uQgAG0JFI2HI+IIALrCAAWuFw2hkAC5BeS8IbTJQAHSMfTASTMbXyQTKAaAcNNAAdeNzVAmw1tsmAsEEw-Fw2EYPwNxtNFsFhHwADd7bheC6mDqFMBMIRU5hbIwiEgaQzGGTtNZ8G98PxmEYZEgAI6mBnR3i2JDQJAAFgArNx+4opRAagBxG12iCAKDlAKfmgGh3G4Js2W4DIxiG+2ye0CcnAODwYAAL0NSAAwgA5MAgYBgR+gCAAfTf74-74gKwGgGO5QCAHq+n7AS+ED3o+FasuyeBED0EB1gQtiEDIhLZAAMjwzzFtQvT9AStTwW8iHIahRgYdwzx2AAZg2EAAGpUlAAD89GEcRKGPOhmFdNhjFQBALF0GyWAwVyDEkFA5r0SQUm2GmDZPiAQEgR+ECANK2gCr0a0lzKSpb5gQ+2BfAIuAQJBADe4LtmGAA0GIAowpkAL4QFRMQQAA5KIFZINuYY-GKDLAKY0YWDIHkQeiAAaLKcUYxKkhSVKQQAmrFnTxZZVEsBYhCyaY4iULRTnJeiABa6WzM8cXPCKFIQAAPhAtgFUV-C4WAkFldAlVEjVXT9XVYqNRAlC8LwPzFrhpW4gRBKWbghr4LYUnCN2VFMtlFg-HlIiRuS+WFQ2yh4v02EnWdti0E5kW4owmDNiyaokO8Dm4K81kWF0QnQZyXRRb0dlDZSgMvW8b0faYYbfcJHKwSlgMQFlOW7S1R38BAJWg1Ar34I5kPQz9Il-WViPAyNaNtbhNlgxDLyfTDv2wd1ZOJcNTVjRN+BTdj9l4+99NQ19RNw1yfR2ZTDbU2AepPkK3ktnWb1IA2ej8J16KqwILIi6JXSS+1j6KbpekQIA0HIhIAptYmypBlgKAJD9IAYEqANVyP6AMeRgAq3quJrroKW47nuB5Hgg+a2DI6ANmeF43o7EDLl7PuJhuAe7jI+78Iex7ADIE0hdg3YolA-SAC9mgBYmu4Sd+5uMjbmnGeHueV63uBYBAA)
+
+```typescript
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer V>
+  ? V extends PromiseLike<any>
+    ? MyAwaited<V>
+    : V
+  : never
+```
+
+这里用到了 [PromiseLike](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_es5_d_.promiselike.html) 这个类型
+
+## 268・If
+
+- [接受挑战](https://tsch.js.org/268/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBMBsAcEC0ECSAzSyk91gRgJ4QAKAhgG4CmANhAOI0CuAzgBYDWA9hRABQABAA5l2TAC4cAlBADEgAO9AqspyJASxossWWToiAMjMB3blqiA87UANzoAA5QFRyEAAaoAYrYiBvH0DR6oBh-wMHagUuNAbKbWgIbmgG9y7nYAws4e1oAkSoC1poBccoD47oBvpoAhboAr8YB7amG2ACpRgKdygFPKsYmA4grp2blOgEAMEc6AV8qAvwGA9GZ24gBOTFTOgGhGgKABduhkGr0edgUQgDEqdk4QgPfKha2A33KA8IbutcYQgNHygEGagFj-27Yn4ppQ4oRCVBAAghAAvGjoADxdPQA0EADkZN9f33w3wAfFBgMAIFQAB7XADG4ioABMIOIuBB8Ddft8sJdrhAAEKPZ4vEZjAF-AFA0HgyEwqjwpEotEYn5ArAnWzbUGACnUGKpxGwmPgIIAoOUAp+aAaHcDmxxOIhCwAFzgs6wtgAOgAViw1VxOgBzYBweDAABebCQ4QAcmAQMAwPbQBAAPou11u10QQAG8mlAMdygEAPZ3uoNOiC2+24m4YF7hWkIgB2iJY6K4XBoVDIca+eS+DlBTxj0PjiZR3RuAH4IHkIAqIA57WBHcGgxBANK2gFXowAUrjtA02PWHVABbIS68Qoq43ADeEAAogBHJijL7TunwiAAXwg6E6XAHPwEEaQqtGabjeqoLGAag02LAEYgsNE56JAG0sMu4eIXnOFzQXlH3lQ5L-KyIJAcCwIfG+K6ft+ox-q8pIsIBPwUjAEFoRBYAALoOhC+4sEg0IfoRnTbp0t7jpCpG6kSUZxkwNA0EBlIgvWDYgD2vYhoA0HIWIAptacb2oZ2qAWCgoAYEqANVy3qAMeRgAq3tKsrykqwAquqWo6vqhoIMAGYsAA7lQnSmuaVpiRAkryYpcqKsqLCqpq2q6gaRrACwqZqFwcbnBAoKAC9mgBYmoY1nKXZDkac5JkWtaYZgEAA)
+
+```typescript
+type If<C extends boolean, T, F> = C extends true ? T : F
+```
+
+这题也比较基础，考的就是 extends
+
+## 533・Concat
+
+在类型系统里实现 JavaScript 内置的 `Array.concat` 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。
+
+- [接受挑战](https://tsch.js.org/533/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCsDMsQLQQMIHsB2BjAhgF0iUWJMICMBPCAQQwBMAnAUyoGkGcBnNAN04GsqACgACZZrAAM-DgDYAnFk4BKCAGJAAd6BVZXU4GHCoUJqTEQBkZgO7cjUQBTqgbx9A0eqBvn0D7foBnEwHnagBucIAKRw8OADKWAwAlgAOeBCAoYqAdv6AIW4QAAbU+jgUAHRYmLh4yRCAnaaAqzaAMP+Am-GAVHKOgKXGgOvKgCRylYBDyoAOpqWAK-GAe2oJgA2mrYAjfo6AKXqAp9GAkMaA5o6AyfGApoptgHNygGe6gAxKgM-KCYBeGYDxeoAQKoBueoBccoAAcpW9CYOAQAzWEIDR8oBBmoBY-zfJr3ichHgUEUwQAEpMTgAVwANtEALyoXL4AA8AG0AIwAXQANBA4QAmJEAPggwGAECYAA8flg8Ew6BA8GgIGRfoi0VjCK9kjdcTYIABxMJ4AAWQLIEEAUHKAU-NANDuj15eDwEU4AC58e8sLzMgArTiZNAMADmwDgsGAAC9eYgUAA5MAgYBgG2gCAAfUdTudToggAN5BKAY7lAIAeDpd-vtECtNq+Pyh2FhABVCUTyfROBAgRh+Bg0AB3DBw1EQACqUGJcboCaTKfTmZxEEhcMyNcjaJrmRzSJtYDtAf9EEA0raAVejABSutz97ddwbCAFsIlroqHfgBvCAAUQAjkCcCC0fOSUwyRAAL4QABmDDQo4gAHIRNPEMrVyCmBhtYDgEC8GEQZxTyHvr9cJxAZX0YQG6kngMJLiuIIwugEYgVmaJZticE4ghgGbmSoHLqukHQjB2aIjicHItiyFQEBW4gWBmFQXk8IIoyuGwGiAAs+HorREAYmiDEQMxREoihwHoeBWHQfCp4IqejJoqesCnrh+6rr+aJkGgaC3jgGBSYxskIeiYkSexUkyWi8lvkwSkqWpGlnlpSF8c2LZtkOrqANByxyAKbWg5OUG1qgIQuKAGBKgDVch6gDHkYAKt6StKsoKsASoquqmo6nq8DAOpnBpkwDBGia5p+RA4rhZFMryoqnDKmqGparq+rANwILPmEmAfFAuKAC9mgBYmpYRXRaV5UJVV2WmhawZgEAA)
+
+```typescript
+type Concat<T extends unknown[], U extends unknown[]> = [...T, ...U]
+```
+
+## 898・Includes
+
+在类型系统里实现 JavaScript 的 `Array.includes` 方法，这个类型接受两个参数（左边参数是否 include 右边参数），返回的类型要么是 `true` 要么是 `false`。
+
+- [接受挑战](https://tsch.js.org/898/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBAcCc0QLQQJIDsDGAbArgEwFMBnSJRci0gIwE8I0cssIAKAAQGsa0CAzHDgEoIAYkAB3oFVlUQEMATrOk1SpEaoiAMjMB3bsqiAKdUDePoGj1QN8+gfb9AM4mA87UANzhABS0gG7SAyhlkBLAA4AXCIBC3CAADAEF5RQA6D0xcQiIgiEBO00BVm0AYf8BN+MAqOSNAUuNAdeVAEjlMwCHlQAdTVMAV+MA9tX8jQEDIwAk5QHozYJ9ZHAIExpag3mksIk7AIAYdCEBo+UAgzUAsf9GguZ8SKB8aLwIIDyIABQ8mOQBZAjQIAF5UGPxiAB4AbQByAGk5IluAGghbgFEiDzwNj1f3gB1aQAWxwOABtxc0jQPhh0luAF03rcACIeAD2twAfBBgMAIAQAB6rDA+Ah4CA+DEQKhrXr9QZBUhzZlQUi43QQADiHh8AAscFQIIAoOUAp+aAaHcpvyfD4vEQAFz4hYYfkRABWRAiGNkAHNgHBoMAAF78xAAYQAcmAQMAwPbQBAAPou11u10QQAG8v5AMdygEAPZ3uoNOiC2sDLVaoIgfACOOH6lxCbwAQrjTiwQoSieS0HgiBBkxAAPxU9prBUQPoDAjCABkrELxJzeYgmZLbQ6EArVcGgnDKzW6GwFyIlwAKlnm-nZARpHgMWgsHQYTRrsiIABVNMQCdNw4t67RXgEWQQABibwiV6PJ4gACViD5EaQSyho3GExfN7i97n8x2CFIKB2zLICuzOYc4kuB8iB8N4t1IbtGUAsBHWDIMIEAaVtAFXowAKVzGQN0I9MMPBBLwdT8CM1gAbwgWN4ywN4PhJAgyQgABfStZAxEF3jYKjEFVfosEOXViGAHAfB2Z57SoiAMGkQZ81Oa5SGY0kfEueiEyHWIrjuR5ZGeFEvh+P5IWBMEIRRaFYXhJEUUM55sTeADsRctSWLJLSPywS5dJHG4HieSFTN+b4LNBcFIVsuE0ARdc0UxHE3h7Ah3JeTyNJ8hj-POKDrgARjeAAmN4AGY3gAVjeAA2N4AHZ1walzSw6DKstYzTtL8gKCuKiAyogSqIBqiB6ogJq3gAFlatKOqgdSupynT8v0gahvK9cStatyPMWrzut8vLIPW0qKvXQrdrLBa6MOlberW0drmo9j11o6QK1uEJbg4ubkNupbvJ6k69OeqgMQxESYXO4bqrqxr13m1KAf2u7spBvr9IA2GRrGiaptpSHobQf7q0B+7Maem40tx+HxsRlHydcm60aBo7cqx56Pq+n6OPeiAZznBclwgT73j59iycGCmMeOrmblooX50XZded+t63h5iWNel9K2cp+XqaKy6IAAH0GvXZeWqnTuewrzcGy6rYNuXOeNhgmHXHBcz4aIKRdzKDrd1a7ZuH3CF4f28HXT2sEDsBn3tVCQEIoiQ0AaDlAAA5QBTazTojQztUAOQgQAwJUAarlvUAY8jABVvaVZXlJVgBVNVNW1PUDXgYAYSIAB3E8TTNK0S8lWv67lRVlSIVUNS1HV9UNYAiChyTMTQRYIFxQAXs0ALE0tHHxup5ntv58Hi1rTDMAgA)
+
+```typescript
+type IsEqual<A, B> = (A extends B ? true : false) & (B extends A ? true : false)
+type Includes<T extends readonly any[], U> = T extends [infer F, ...infer Rest]
+  ? IsEqual<F, U> extends true
+    ? true
+    : Includes<Rest, U>
+  : false
+```
+
+运用了小册中的套路三：递归复用做循环，
+
+##
+
+- [接受挑战](https://tsch.js.org/7/play/zh-CN)
+- [我的解答]()
+
+```typescript
+
+```
