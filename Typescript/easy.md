@@ -12,9 +12,9 @@
 - [x] [533・Concat](https://github.com/type-challenges/type-challenges/blob/main/questions/00533-easy-concat/README.zh-CN.md)
 - [x] [898・Includes](https://github.com/type-challenges/type-challenges/blob/main/questions/00898-easy-includes/README.zh-CN.md)
 
-- [ ] [3057・Push](https://github.com/type-challenges/type-challenges/blob/main/questions/03057-easy-push/README.zh-CN.md)
-- [ ] [3060・Unshift](https://github.com/type-challenges/type-challenges/blob/main/questions/03060-easy-unshift/README.zh-CN.md)
-- [ ] [3312・Parameters](https://github.com/type-challenges/type-challenges/blob/main/questions/03312-easy-parameters/README.zh-CN.md)
+- [x] [3057・Push](https://github.com/type-challenges/type-challenges/blob/main/questions/03057-easy-push/README.zh-CN.md)
+- [x] [3060・Unshift](https://github.com/type-challenges/type-challenges/blob/main/questions/03060-easy-unshift/README.zh-CN.md)
+- [x] [3312・Parameters](https://github.com/type-challenges/type-challenges/blob/main/questions/03312-easy-parameters/README.zh-CN.md)
 
 # 解答
 
@@ -157,11 +157,29 @@ type Includes<T extends readonly any[], U> = T extends [infer F, ...infer Rest]
 
 运用了小册中的套路三：递归复用做循环，
 
-##
+# 3057・Push
 
 - [接受挑战](https://tsch.js.org/7/play/zh-CN)
-- [我的解答]()
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBDMAMCsB2CBaCAFArgZwBaVRSOIICMBPCAKwEsBDAOwHM9GIAKAAVsZd0YC2AUwAudAJQQAxIADvQKrK0ugCcldcgQJStEQBkZgO7cNUQBTqgbx9A0eqBvn0D7foBnEwHnagBudAWAmAKV0AhbhAAG3gIIq1AHQADji43p4QgEAMhhCA0fKAQZqAWP8x4SLkQULYAMZKNEEiBGkZEABKmZgANiIQALwYoQA8ANoAjAA0EABMALodAOTQfQB8EMDAEK0dnf2D3QThMSNGEADiNCK4mKQQgFBygKfmgNDuibgiIkHYAFxjItm4AVTYAQD2SkzAcEjAAF64KADCADkwCBgGAwaAIAB9aEw2EwiCAA3k3IBjuUAgB5QuGYyEQEFgopCep4BoAFQ6AFURnViRAhAAPERCBgAE2wEwC7JoDAAZkIlKVMiJuhAAPxs9llbAicndC4QBhCABuvLBYAhWMxEEA0raAVeiXLEMer4biaAIgi9qviIABvCAAUQAjpg6BUOrbaRkstUAL4QLlKJ4CCB9Tj4lBZfgVCqMpiZYCYEQ0CrYPp49IErJ0bCZWoTAhuj0iBoOp0VBpYIlNXoQFpDDqtbpDWt591CT1Fx3OsuNSZdKsDYZ19pdGZ9BtNqD51uF4ud8u4Zp9Fp9KYjqukJ5PKOMWsTRfL4dBwYddeboSMMdtMBzFVqw3wwDQcoAAOUAptYGu840GgAgjQBgSoBquSRQBjyMAFW9jlOc4rmAG5w3uR4XjeD5EGARhsAAd15b5fkBb8IEOECwLOS5rluWDnled4ECQ7BN3jGgngYbAcMAF7NACxNfQCIg4iYIeMi3h+f4gVxMAgA)
 
 ```typescript
+type Push<T, U> = T extends [...infer Rest] ? [...Rest, U] : never
+```
 
+## 3060・Unshift
+
+- [接受挑战](https://tsch.js.org/3060/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBDMAMBssIFoIFUB2BnAFgSwDMAXSFZci0gIwE8IArPAQwwHNcWIAKAAUZfY4WAWwCmRJgEoIAYkAB3oFVlWUwBOKpjVKkZOiIAyMwHduWqIDztQA3Ogbx9A0eqAJJ0A05oBC3CAANXAQTUaAdAFds+YldnQCAGYwhAaPlAIM1ALH+woKIaAAdRLABjFTxEkigE5IgAJRSfABsiCABedH9CIgAeAG0ARgAaCAAmAF1W2AA+CGBgCHrYVpb25o7SILC+wAp1CABxPCIcHyoIQCg5QFPzQGh3aJwiIkSsAC4BojScL3osLwB7FVZgOERgAC8cZABhADkwEGAYCBoAgAH1wRDIRCIIADeQcgGO5QCAHmCoajQRAAUDcqIqrgarUACqtNB9SoEiCiAAeRFEGAAJlghl5mXgMARRCoCikiB0IAB+IZoVrMryFLA8iAnCAYUQANw5QLAILRqIggGlbQCr0YAKV3CKJV0MxeGEiQeZWxEAA3hAAKIARx8TGKrWtlOSqTKAF8IAQVHdhBAAOQ8bHIVJCYrFWmsFLAHxEPDFLABrFJHGpJhYFIVIakF1uup2h3FWqYPHEBpdCCNHqtJodHo13Ou0Tu2qFx0l6rlpqtTrdGtDEZV3v1xtQPMtgv2julgJ1eoBxoB3utAPQAOVqh3O6RlgD+pbneiFirpcrwPr0fNMCTRXK-XQwDQcoAAOUAptZ6h8YwGgUh9QBgSoA1XJwoAx5GACre+yHMcZzABcYbXLcDxPC8sDACwWAAO4cu8ny-L+EC7GBEFHKc5yXPB9yPM8CAoVgO5xngdzYHhgAvZoAWJqGERUGkXBNwUU8HzfH8mJgEAA)
+
+```typescript
+type Unshift<T, U> = T extends [...infer Rest] ? [U, ...Rest] : never
+```
+
+## 3312・Parameters
+
+- [接受挑战](https://tsch.js.org/3312/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBDM0IwCYIFoIAUCGAnDBbApgC75YDOkKyV1FARgJ4S4CWAJgPZbMBe+LEACgACLDl14sAlBADEgAO9AqsqzmAOwBmJWYQCuABwA2+WbW3N9hZKooUZtiIAyMwHdu1qIDztQA3OgUMVAdv6AQt3TYeEQkpAA8ACoAfBCA3j6A0eqAMP+AMAGAsHKA9GaAL26ApcaA-vKAFK6AwdoJgPfKgEPKgMABANrh9Lr4AMoAxly6hIAZ2oCdpoDhpoDGFgC6AgAWhIS6pABcwMAA7rMAdIS1+KTNzK36GCoA5nOcW8AcjaTAg5ustOzsANbA2oRmzIvIi3Wkc8O4+jK6gQTEZC98JJAEAMLgggGj5QBBmoAsf7BAAMEYRyFBGuwVKRCBA1JcIABeQTYLZwcYQDFcbYAGgghIQJJU2lwtBIkhJADd2Gw8dEAN4AXzBgIgADFtCpGvc0ZgcLhSDU6niIABZehSoL-MKA9hqLGXaJTCCVQnE0mEclbKk0ukMplYPoUBFwsHRQAU6hAAOKPQbaWgQQBQcoBT80A0O7Q4ajCZTJGNQZzABWbz2wFgiGA3EGyAAwgA5MAgYBgfOgCAAfRLpbLpYggAN5XyAY7lAIAexfLTaLEFz+cFytVfxCEQg+AAHsQVKxSII5uPCRNqSp6JU+tJcdFNvRovjwn3B-hh6OBOO5pOSaoNFgIABBBdLmcQAD8Z4gdPwrJIBZAjebZYggGlbQCr0XlwW-3xLVs82YXBdE4TFBW5CAAFEAEdtAwfQqRg-s6nFCBeSxLB2FwCAAHIhEBZAoyQwxtmWW57n0Uh8PzVF0UxbF2AVAQjRJMlVHNaksC2WkIHpRlmTZDlWC5CA+TABiMQgWhsFY9jZMuQxNgtXj+OgjASXw098MwlkIHZTlFwk-lpMxOTuFYgyjLEkzJLAQVGgwUhlgVSoKFQ9DCFCeDEP0UJO1+YIyFCTVtWYyIqUqTjKQE60SD6SIos8tD8HFXyEKQwKVWC9UwqWLVZOwKKDQudgVJUKlNO03TMKSlKoC89KfL87KgulEKNUK7VLNKudkopMA7XzMBC0Aj9AGg5QAAOUAU2sAMA4CxvAKBokAMCVAGq5atAGPIwAVbxDEYxkmYBI2jONdl4xN4AQYBNlIaYSBTNMswoaIgz2g6w2O07Y3jS6kxu0gKruZg0WRCBokAF7NACxNJxPqOiMVjOv79lTDNszbMAgA)
+
+```typescript
+type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer A) => any ? A : never
 ```
