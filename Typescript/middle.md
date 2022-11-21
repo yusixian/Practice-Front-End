@@ -108,7 +108,7 @@ type MyReadonly2<T, K extends keyof T = keyof T> = {
 
 结合上面的 [实现 Omit](https://github.com/type-challenges/type-challenges/blob/main/questions/00003-medium-omit/README.zh-CN.md) 和简单题中的 [实现 Readonly](https://github.com/type-challenges/type-challenges/blob/main/questions/00007-easy-readonly/README.zh-CN.md) 可得出该题的答案。
 
-## 9・深度 Readonly
+## 9・深度 Readonly ⭐
 
 - [接受挑战](https://tsch.js.org/9/play/zh-CN)
 - [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCcELQUI+2gyvQgJQKYEMAmB7AOwBsBPSeOSq8gIxIgEECAXAC0PoDEBXCACgACWFgDNuASggBiQLRygSW9pAJ2z5i9KXhoArDAGNmcANYYSAZ2k4MGAA7lyUhxEAZGYDu3O1AB8EQIyugdhjAMtaAV4GAFUqA3-6Ai9GAMP+ARNaAc-EQAApoEICcpoDb8RGAFLGA84mAQAzuEIB52oANzoAAcoBUcoBYCYAUroAhbgAGACJW1pi4hKQAPAAqHvWRgMHagGA6gJ-agIYxtYDz1uWAQ8qADqaAU8qAboqACtrjgEgJgEr6gAzqgH3RgFxygFfKgN-R+VDkgBUGgPfKgKdygOIKu4AU6oAm1oCIxoAYRjKAiEaAN3KAo3KAEE1AGAu41yc0AI36RQC-inNIoBvHzkgF+EwAHpoAAdMAwAGARTDcoAxeUA9GaRC6AWblAGyOt0qgHH4wBhkYA1t0AvDpXQC-AYAsTVqgFg5QAwKoAJC0A0fKAU3MPoFAI+6Zwg5B5gCDNAr1GXMUzkZgkawYCAADQgAF4IABvMVQKAADwAXDq9fqoFgTQBGcjmmgmgDkrAAlg7bRAAL7ukiO1gmN1QL3nKCK5UQACiBuV+gwOE1pvdynaaggxoT5qgSdUpAglogNozECzHXo9ogTtd7qD+uLKZ95b9JAdZurCqVKu6eHw8eaNja2ZInVVXmAwAgpnY3CIcZoKtMWAAtiqsOZ6pHo8xY-VyDLt8GIF5HhAAOLOtjcGgQQBQcoBT80A0O6ALH-WMxmNZTEbR3LdKwAHRaUw-ngigAObANAwAAF6sHAADCAByYAgMAYAoaAEAAPqYVh2FYRAgAG8rUgDHcoAgB4YTh5HoRASEoaGKq9q0Kglj0EAYAam4EDg5gAPLaHozBeFq2rkLWOYANoANImBAzoEBAxgkHgIgQN0AC6JrdBJJgqSxbEYBx5iYLoQE4J0wgkAANLmBAkB47oAPzKZpJDaax7GcRAPAEPozqEO6UAORpknOX5EAmvR-ZMYFWm2ea6lOSpYBemAaEUeRECANK2gCr0dUPJkaluHUc6C7WEBzAQLRprhgAjtwWBEJZ658Z6EAiIoeALuWAi0XA351UQenARgpjANwzDOkQphumAFW6CuQ3xqJ5CNfonTVbVRCdOFjFqEOHgNVGfGxh4e1gAl03tmq8ZCRaJp8JIGpeAATI9tAmqYzCKDJwHkLoJrXfqOAmjQeB4P1wjuhgf0hcBUOFlArCw3DUDOiaH3cBgIXmlojrvZ9BDAQGcPVoWhi+hgRBEHghPmsT+pECai1IxWDrmZjOps1AC4M06-oJUjHqs4WfP6tWXpehVy2bnGgnCdtOZ5ndmpPS9mZy6Wb0fV9svJjmv3s+aIn0IDEDA6D2AEImassYjBtWzD+tw4bEAIw7SNOyj5WKOjHNFlb2PlrjX3UxmtO2zr9Ckw25OU8HgYhU79O++HECM3DzOC3D-1u1bXNJwOKc802wuFgLIXF565BiyhqEgHl+WUYA0HKlIAptZ1-lVHIaA5BeIAYEqANVyBGAMeRgAq3k+L5vh+wBfr+-6ASBYHAMIpgAO4YIokHQfB3cQPeI9j6+76fqY35-gBQGgeBpig6NPkEPKngQIAL2bMq4+8T0fJ+z+fG+wQh1FgEAA)
@@ -178,4 +178,101 @@ type TupleToUnion<T> = T extends [infer V, ...infer Rest] ? V | TupleToUnion<Res
 
 ```typescript
 type TupleToUnion<T extends any[]> = T[number]
+```
+
+## 12・可串联构造器 ⭐⭐
+
+- [接受挑战](https://tsch.js.org/12/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMBMEFoKHvlQTHKBUAwIeaAIEwFmqUQSOIICMBPCAQQDsAXACwHsbKAxAVwgAoABAQ3oAzDgEoIAYkC0coElvSfwAOCgDYBLAMb86qlgQISDEQBkZgO7c9UQBTqEAFL8AbvwDK6gE6qFdCFMCIRoBu5QPN+gBx6gFjygP7ygBSuaOiAEP8Awgz8qjT8pMoApsAACu5pajRpgJD-gCFugL+KgA6mOIAAcoBUcoCf2oCGMYAw-4Bi8lYAKuQKac5uHl6NgAbygL8BgBAqgGAuRYCbfoDB2oDSsYBQcoDePoDR6oDoKoD4-+YQFoCb8dWAiMaAGEZSg8iAp3IRgN9ygPCGA4A5qoBE1kWAnaaA8PqAedqADc57K4gQAJL0NIuIT8dRpAA0EA6XQggDQjCCxZT8ADOKIggF+EwAyEYAgBgGgAB0wCBkYAF40A2fKAEjlquUIAADJgeHQ0bgAazS5ChDmUHDSohpEEAMSq0gDmaTo3F5OKsdIZLD5UgJhIiZKKEFZlEFnO5EEAlkaAVR1AMr6gFklIoNFaNQBYCYBx+OFor5gHbgwBryoAAc0AE36AZb9ADnmOK2gGj5QBBmlsaUG6CiCAATNLqZEuNIQdQsFGeeM0ISqIUALkRCSSKXSW2TiYgMZRHGUngAvHGWKmhQQoAA6enaFjcADkQiYTFbULgAGZRHWII2ZUzW8kALZpbsQVt0TppBDqBLKdI0EUo1sDqANpuMtukfguacAbwgmrSmdbAAlcsomBAAOpMFzKMOtiAAXy32-rIrF34IYBgAgQB8c0AbHMizSEsywgIoVkAejNACx-ggkjoYFQXBCAACUoNLTxj0HDsmEzGgOHHUhgUHCcLwgRM3DXQcDxcTMCO3bdz0zOiklrNiPwIPioCDGktgGQAr5SJCwVkAIR1ACN0r49kAfKUhj+QBYOSJL5LkAVXloUcYBrEcWD3kAUTTAG4EwBE+O9KACAGc5AHEFQA+6NpNU+VEwBS40AdeVAHVtQAyb1QQAYANpc8+Q8rSzTEolABazQAmdOmQACeUAJAS4OWPy1MJQBt+KxLTABBNMYcUAGBVAHYLFUaWciBROCQBqiIiSpAEJrSyIAIAA+bYIAAcVURgOFICB5kAU-NAGh3RCGDoOgFBRdMgJDJd6wAKxRRsXCFYA4GAAAvBgEFiAA5MAQGAMADtACAAH1TrO86zogAYikAY7lAEAPE6Lqe46ID2g651heJEmSVI0gAHgAeVIGaIDSAAPNCaDDdEcPjFwwz+ri1yhQRyGaytjw-dGIFYiBdxYP6AGlQYhtIofRJGhShAA1RruEHNVM2J8HIeh1U2SYIQICBkGAH4eGpknWfRHmAG1CYAXQgfn8jsYEIEzanxCZiFBw4iBqdVqBREzL6c1+wHxw6wHgahQnmoAMmwyNnwRwmacaxqCD-cVMx5sA+LAI7nqeiBAGlbQBV6PCH1Hp9y63tUccFGfTwPtjU8qDUVkoQAUTBrp1E8D8ICEFwmHHGdeDjxdl1XddgA4bRlA3A6IyjQ9YwLTx+F17MfrzMAm8g6C6GgCBK34Ahh2bUciOnPtv2HvdWyYk8z34LkaOvW97yfF830-Sf8dHajp1necS4XsuoM3IeXYHTuE08Ys8PgAeh+3ttd6hVtBCYRh5d378gIgIuUQQcGGc6AAJcHnFwD8RxP34JOPeyJCxfzPqKcUB0u43zLL2fuEBB47kgWOaBU4X5vw-i4CACCoA-z-gA9OkZgHAjARAkeUCYE9lgP2RB-53rzjjKiKCmDRYEDTkAv6idVCsj+nHTm3c8LQFTtQzOaQwzQEdlrCAgiaHCKTv9CRXM0F0FgLIoBCjYDKIEXIugGjRFaPnJI3RvYDE0IUb2ExEtOGwjUfIxRmDcZERImRCi4CoBMRYmrBe3JOJ0HojxT8BBqLhMiR7VxsZ3FoTDHfHGMT8FxO4gksAcdVFmMcV4jJk5fHkUop7Q6IBQ5hxeoAaDlKiAFNrapYdXr7VAE1CAgAwJUANVy11ADHkYAFW8hojTGhNYAU0GCzXms+JaK1BAogAO7AjWhtbaHSBqDOGaNcak0UTTTmgtWZsBgAoiYFyEeoYoDNUAC9mgAsTVMFs0Zuz9nTMWiszaO03pgCAA)
+
+在 JavaScript 中我们经常会使用可串联（Chainable/Pipeline）的函数构造一个对象，但在 TypeScript 中，你能合理的给它赋上类型吗？
+
+在这个挑战中，你可以使用任意你喜欢的方式实现这个类型 - Interface, Type 或 Class 都行。你需要提供两个函数 `option(key, value)` 和 `get()`。在 `option` 中你需要使用提供的 key 和 value 扩展当前的对象类型，通过 `get` 获取最终结果。
+
+例如
+
+```typescript
+type Chainable = {
+  option(key: string, value: any): any
+  get(): any
+}
+
+declare const config: Chainable
+
+const result = config.option('foo', 123).option('name', 'type-challenges').option('bar', { value: 'Hello World' }).get()
+
+// 期望 result 的类型是：
+interface Result {
+  foo: number
+  name: string
+  bar: {
+    value: string
+  }
+}
+```
+
+你只需要在类型层面实现这个功能 - 不需要实现任何 TS/JS 的实际逻辑。
+
+你可以假设 `key` 只接受字符串而 `value` 接受任何类型，你只需要暴露它传递的类型而不需要进行任何处理。同样的 `key` 只会被使用一次。
+
+**正确解答**：注意 Key 必须为之前没取过的，或是 Value 类型与之前不同的（用例 2 和 3）。
+
+```typescript
+type Chainable<Obj extends Record<string, any> = {}> = {
+  option<K extends string, V>(
+    key: K extends keyof Obj ? (V extends Obj[K] ? never : V) : K,
+    value: V,
+  ): Chainable<Omit<Obj, K> & Record<K, V>>
+  get(): Obj
+}
+```
+
+## 15・最后一个元素
+
+- [接受挑战](https://tsch.js.org/15/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMCsEFoKABzQcCqAA5QVHKGFFQBL6UQSOIICMBPCAQQDsAXACwHsbKAxAVwgAoABAQ3oAzDgEoIAYkC0coElvSfwBOC-uQIEJGiIAyMwHduaqAD4IgRldA7DGAZa0BXgYAqlQN-+gRejAMP+Aia0Bz8RAAKAJQiBOU0Db8Q6AFLGA84mAQAz6EAaAFOqAJtaAiMaAGEZSgF96gHXRgP7ygBSuACrkAA4ApgDKAMYKAJb5dBAALAB0AAyRgHnagA3OWIBYCVkABgAy-ADOdAA8OQY9joDB2oClxoDryliADqaAI349OT2AbnqAK-GAe2qAbopoWHiAIW6A3j6A0eoRUASA0fKAQZqRPU90gwR0BYUQigrQEAC8EAA2gByfjAgA0EGBpAhUNKwIAum8Pl8lAAmf5AgDMkLRkOgSOuUHeRQgdH4FQANr8AQNhiNvtAjMBgBBCgAPIqlOiFAAmZKYEFIn2B8ORpPJVIxtKGo2+aOZrI5XJ5-LoguFMAITx6kSM0QgAHEKowOKQIIAoOUAp+aAaHdAFj-DDodHygwAXCyXqUGPUAFaDepMBQAc2AcGAAC8GAgAMIAOTAIGAYDAoAgAH0M5ms5mIIADeWOgGO5QCAHuns2W0xBE8mSZ86aMcmz2TyaLzBl9WICEUYAQ2Oc3W0D6kOKjQhIUFBAvIVhpCR2OJ30ERAAPwQPoQV0QGiFABu4+TqfLZYggGlbQCr0VkbqWjzmqxUALb5QM1GsQADeEAAogBHDj8SmQp+nKFNyEAAL4QEIChMPeUK8DWCBev+lKFDQQbTsAHB0FSgzAtWKKlEM06YoCBBASqIw-n+lIjHWIyAjiEB4jAXb4gYBjgmRwHcpRv7-rRsr0dw4h-EY0BooxH78JuwyVGh4Gse+XwyXQclBuB7GcUiKYgNeN4VoA0HLoIAptZ6TelZJqABBGIAYEqANVy+aAMeRgAq3g6Touu6wCet6foBsGoawMAgiDAA7uOEZRnG1kQLaLluc6boeoMXq+v6gYhmGgxMJSWEVCwryGBAgAvZoAWJq6PFHlJSlvnpRFMbxlWYBAA)
+
+实现一个通用 `Last<T>`，它接受一个数组 `T`并返回其最后一个元素的类型。
+
+**正确解答**：基本送分题
+
+```typescript
+type Last<T extends any[]> = T extends [...infer Rest, infer L] ? L : never
+```
+
+## 16・出堆
+
+- [接受挑战](https://tsch.js.org/16/play/zh-CN)
+- [我的解答]()
+  实现一个通用`Pop<T>`，它接受一个数组`T`，并返回一个由数组`T`的前 length-1 项以相同的顺序组成的数组。
+
+例如
+
+```ts
+type arr1 = ['a', 'b', 'c', 'd']
+type arr2 = [3, 2, 1]
+
+type re1 = Pop<arr1> // expected to be ['a', 'b', 'c']
+type re2 = Pop<arr2> // expected to be [3, 2]
+```
+
+**额外**：同样，您也可以实现`Shift`，`Push`和`Unshift`吗？
+
+**正确解答**：看了小册后不难做出
+
+```typescript
+/* _____________ 你的代码 _____________ */
+
+type Pop<T extends any[]> = T extends [...infer Rest, infer L] ? Rest : T
+type Push<T extends any[], Arr extends any[]> = [...T, ...Arr]
+
+/* _____________ 测试用例 _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Pop<[3, 2, 1]>, [3, 2]>>,
+  Expect<Equal<Pop<['a', 'b', 'c', 'd']>, ['a', 'b', 'c']>>,
+  Expect<Equal<Pop<[]>, []>>,
+  Expect<Equal<Push<[3, 2, 1], [4, 5]>, [3, 2, 1, 4, 5]>>,
+]
 ```

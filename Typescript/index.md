@@ -42,9 +42,9 @@
 - [x] [9・深度 Readonly](https://github.com/type-challenges/type-challenges/blob/main/questions/00009-medium-deep-readonly/README.zh-CN.md)
 - [x] [10・元组转合集](https://github.com/type-challenges/type-challenges/blob/main/questions/00010-medium-tuple-to-union/README.zh-CN.md)
 
-- [ ] [12・可串联构造器](https://github.com/type-challenges/type-challenges/blob/main/questions/00012-medium-chainable-options/README.zh-CN.md)
-- [ ] [15・最后一个元素](https://github.com/type-challenges/type-challenges/blob/main/questions/00015-medium-last/README.zh-CN.md)
-- [ ] [16・出堆](https://github.com/type-challenges/type-challenges/blob/main/questions/00016-medium-pop/README.zh-CN.md)
+- [x] [12・可串联构造器](https://github.com/type-challenges/type-challenges/blob/main/questions/00012-medium-chainable-options/README.zh-CN.md)
+- [x] [15・最后一个元素](https://github.com/type-challenges/type-challenges/blob/main/questions/00015-medium-last/README.zh-CN.md)
+- [x] [16・出堆](https://github.com/type-challenges/type-challenges/blob/main/questions/00016-medium-pop/README.zh-CN.md)
 - [ ] [20・Promise.all](https://github.com/type-challenges/type-challenges/blob/main/questions/00020-medium-promise-all/README.zh-CN.md)
 - [ ] [62・Type Lookup](https://github.com/type-challenges/type-challenges/blob/main/questions/00062-medium-type-lookup/README.zh-CN.md)
 
