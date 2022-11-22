@@ -6,6 +6,12 @@
 - [x] [9・深度 Readonly](https://github.com/type-challenges/type-challenges/blob/main/questions/00009-medium-deep-readonly/README.zh-CN.md)
 - [x] [10・元组转合集](https://github.com/type-challenges/type-challenges/blob/main/questions/00010-medium-tuple-to-union/README.zh-CN.md)
 
+- [x] [12・可串联构造器](https://github.com/type-challenges/type-challenges/blob/main/questions/00012-medium-chainable-options/README.zh-CN.md)
+- [x] [15・最后一个元素](https://github.com/type-challenges/type-challenges/blob/main/questions/00015-medium-last/README.zh-CN.md)
+- [x] [16・出堆](https://github.com/type-challenges/type-challenges/blob/main/questions/00016-medium-pop/README.zh-CN.md)
+- [x] [20・Promise.all](https://github.com/type-challenges/type-challenges/blob/main/questions/00020-medium-promise-all/README.zh-CN.md)
+- [x] [62・Type Lookup](https://github.com/type-challenges/type-challenges/blob/main/questions/00062-medium-type-lookup/README.zh-CN.md)
+
 # 解答
 
 ## 2・获取函数返回类型
@@ -243,12 +249,13 @@ type Last<T extends any[]> = T extends [...infer Rest, infer L] ? L : never
 ## 16・出堆
 
 - [接受挑战](https://tsch.js.org/16/play/zh-CN)
-- [我的解答]()
-  实现一个通用`Pop<T>`，它接受一个数组`T`，并返回一个由数组`T`的前 length-1 项以相同的顺序组成的数组。
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMBsEFoKC-FQYBqUQr2MCMCeEAggHYAuAFgPYmEBiArhABQACAhuQGYMCUEAYkC0coElvQewBOE9vgwYBCiIAyMwHducqAD5AFOqATa0CIxoAwjIYC+9QHXRgf3lAFK4AVfAAcApgGUAxhICWdshAAsAOgAGdQhAPO1ABudAADlAKjlALATLAAMABSo7AB5rDXjAGH-AYO1AUuNAdeVowAdTQBG-eOtswDc9QBX4wD21aMBGVzKK+MAQt0BZJQAbBxIAc0oEaEBPDMBTuUAPt0AYFTbALwzAeL1SwAQjNrLAIAZgwGj5QCDNYPi9sgBnDDJ7BwhJCWgIAF4IAG0AcnYHgBoIB9xX95cvh4ATB4AXWOp3OUgATDd7gBmN7gt7QYFQEGOCASBxXW7JNIXaAaCDAYAQBwAD0cLjIDj+EDIVAguDOj2ebw+vx+SJpoPRkKxKVSF3B+MJxLJDgpVJpdIZMLhHL28WCIBAgFyMwBomkrAFj-k0A7BZZQAVBoB9OUA98qjcLxJwUdxcMjZJIMA4UeKAGJV4gBVEgOq02wDoKoB8f+C+K0EAA4u5KAxcBBAFBygFPzQDQ7hqKGQyHYDgAuQmHFwUPwAKwOfioEj6wDgwAAXhQEABhAByYBAwDAYFAEAA+h3O13OxBAAbybUAx3KAQA9292x22II3mydUdj0iLKSQ-gdzrQ7oD8bdrAvesv7n4D+4SFwHBIIAAlBwHMhvI8ns8AGUBEAA-Ber940xBrGAZ2dEvaFDzqSi57pw+Drm8RBSDuS4ruB66bvuB7WG8B5+NBEjAn+EAWl6wEkqB8FrhuULbiBu4rncd6nhAdBoYex60Ze17Pm+LGft+v6gu6nrWgRRGrhBgJQTBFFwUJiFQncEDoZhLzodYwItiAo7jl2ECANK2gCr0ZYGxqepHaTk27gALZ2EW3g4QA3hAACiACODDsF0bx2aKFIQAAvhAXASFQpnvKwf4INmLk9P0V7AAwZDuF0BwPNOoIuOwBxXtJGDueSZCpI5zldKkc53LCEDwjAG5vMVsoaBoLyZR5OV5S5hV8kyvyfCyPwsgCFX3E87VskCNV1VAWVio1TnNUVvWIbV9XZblk0FQBDqpFVpUIiJ9w+G8ACsM0lWV0BvDtED7cN83jYt+WFYBa1bYhlUbnNo0NddzV4fx61HTNP0Xa9C1NQVn05Y99zPSN9lvUDqS8ZaX2HZtlWnedyN7W8iPlf9UOA0tsMevDoMPTNENgMpraGRpgDQchEgCm1gZhnGSpGD4oAYEqANVy-aAMeRgAq3omyaphmwBZjm+aFsWpawMAnAHAA7qeFZVnWLMQPGvP8ym6aZgc2Z5gWRYlmWBxUF0MXuDQRyaBAgAvZoAWJqqBrgva7rYsG4rNb1lOYBAA)
+
+实现一个通用 `Pop<T>`，它接受一个数组 `T`，并返回一个由数组 `T`的前 length-1 项以相同的顺序组成的数组。
 
 例如
 
-```ts
+```typescript
 type arr1 = ['a', 'b', 'c', 'd']
 type arr2 = [3, 2, 1]
 
@@ -256,23 +263,77 @@ type re1 = Pop<arr1> // expected to be ['a', 'b', 'c']
 type re2 = Pop<arr2> // expected to be [3, 2]
 ```
 
-**额外**：同样，您也可以实现`Shift`，`Push`和`Unshift`吗？
+**额外**：同样，您也可以实现 `Shift`，`Push`和 `Unshift`吗？
 
 **正确解答**：看了小册后不难做出
 
 ```typescript
-/* _____________ 你的代码 _____________ */
-
 type Pop<T extends any[]> = T extends [...infer Rest, infer L] ? Rest : T
 type Push<T extends any[], Arr extends any[]> = [...T, ...Arr]
+type Shift<T extends any[]> = T extends [infer F, ...infer Rest] ? Rest : T
+type Unshift<T extends any[], Arr extends any[]> = [...Arr, ...T]
+```
 
-/* _____________ 测试用例 _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+## 20・Promise.all ⭐⭐⭐
 
-type cases = [
-  Expect<Equal<Pop<[3, 2, 1]>, [3, 2]>>,
-  Expect<Equal<Pop<['a', 'b', 'c', 'd']>, ['a', 'b', 'c']>>,
-  Expect<Equal<Pop<[]>, []>>,
-  Expect<Equal<Push<[3, 2, 1], [4, 5]>, [3, 2, 1, 4, 5]>>,
-]
+- [接受挑战](https://tsch.js.org/20/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBMAMEFoIAUBOB7AtgSwM4FMA6AQwBtTJEFqbKAjATwgEEA7AFwAt1WmAxAK4QAFAAFiHAGYCAlBADEgWjlAkt4LiqVMSbyADhhwFKleSYiAMjMB3bkagA+CIEZXQOwxgGWtAV4GAKpUDf-oEXowDD-gImtAOfiUACUIQE5TQG34n0AKWMB5xMAgBmsIQDpUwFNFQF-FQAdTAAM0LDx8ZnIc30Bg7UBS40B15XyDfAAZbABrfEBP7UBDGKzAEb9fQBX4wD21QB4FQBS9QC45PP1CgB4AFRtSwDdFRRyZnMB6M0BjyMAE80AQt0Blv0Ac826kqEoc8-ZcSgBjHlx2CD0CggBGCABeFEmCQlR8XHQpAAbvhhABmGQAbhudweTzq0A+EAALNBoVBbqx7o9vvgwUjWPgAO5fZ74Kb3VDYVgAcxswmEfwBwPwABoIH8AFb4a7sOTvOwAb0oUAI7Bm2Ew+HQAnYjP+gJB7JesFg7IA5JJ0Oh1VDKABfPWnKDAYAQfAADx0PPY+AAJhB2OgIHR8BAJmSpgBtVgCTCu1Ds1HsynUmkAXXmMKxcKRtUKxVIwi98MKL3ZqYI0AzuLB4YgxFwEEx9xkZ3OyTsgAp1CAAcWwXAEdAggCg5QCn5oBod0AWP+cdjsHS4ABcpsu104hE5uEI6FQNOAcGAAC9OAgAMIAOTAIGAYDAoAgAH0j8eT8eIIADeR2gGO5QCAHofTw+DxBt7u7TzSOo3dJWLzsDxSXUiZTMws5FpatqsHaRZ-MQdo8KQTACKwTSsOgRKsF6kbCJQQJkAI-yDhy+CwfBTBeoQFEgTSuDhqyYAyIR8YEFMgoQF6ADS+BMNSEAtAw6CSCwoHhoRVG4BxXH5uB+CQUWTHktSkj4KgEAAGp2AA-GpECiaBEkMPm+o2Lu+6Pg+ECANK2gCr0YAFK6ANHy95mWeL6SjoM4POwDDWhArEAKIAI4CGQ7K+VaNoQPqECSPoEDqqInnWggY5kKQMk0v8wCytgpC4Oqu4lnCuKJjM-zsG8nzyYmybpjA7J5gWRYFWWBU4mSxWlYiFVFeQ1XstmAGFL8CosuCMj5oWxaws1sKtYB5Alfc+JdW1PVejV-XyUNzIgqN4ZlmACVutchb-EiXqUKF1q8lMAVBaQUyHQJs0JvNpU1fJ3rrXVkY2DYdFQJdNo3YFZAPV50qCZmRSvfcG24p9fXsr6-rKT9f0XWF123aDj2Q91pALewYLsh9Pp+gGSPk8plMo6gaN0eGJkgI5TlPoA0HKAABygCm1izTnPjuoCUHYgBgSoA1XKXhsgAq3j2fYDsOwCjuOk7TrO86wMAEi4ESylLiuG5CxAnZSzL-ZDiOuBjhOU4znOC7MlldwG4AL2aAFialgm3L5uW8rNu62um4vmAQA)
+
+键入函数 `PromiseAll`，它接受 PromiseLike 对象数组，返回值应为 `Promise<T>`，其中 `T`是解析的结果数组。
+
+```typescript
+const promise1 = Promise.resolve(3)
+const promise2 = 42
+const promise3 = new Promise<string>((resolve, reject) => {
+  setTimeout(resolve, 100, 'foo')
+})
+
+// expected to be `Promise<[number, 42, string]>`
+const p = PromiseAll([promise1, promise2, promise3] as const)
+```
+
+**正确解答**：
+
+```typescript
+declare function PromiseAll<Args extends readonly unknown[]>(
+  values: readonly [...Args],
+): Promise<{ [Key in keyof Args]: Args[Key] extends Promise<infer V> ? V : Args[Key] }>
+```
+
+疑惑吗？疑惑就对了，请看看这个 pr ：[Variadic tuple types](https://github.com/microsoft/TypeScript/pull/39094)
+
+## 62・Type Lookup ⭐⭐
+
+- [接受挑战](https://tsch.js.org/62/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?ssl=33&ssc=1&pln=34&pc=1#code/PQKgUABBBsBMEFoIBUCeAHAphAMgezwGsBXdSRBSq8gI1QgEEA7AFwAs8n6AxYiACgACAQ1YAzYgEoIAYkC0coElvWcSYBLTrIC2wslHIyDEQBkZgO7dy5QJDmgN9NAMP+AKg0D3yoF+AwDB6gbHNAnBaA7Y0AL5oCo5QD0dQHIDQAp1QBUAwAgVQG8fQGj1OUBT80A-I1jAIAZzKBDAE2tARGNADCM5G0BEI0AbuUBng0AsBMBx+PDomIADAGFhFggAHwgAETwAczq5QBwTQCJfQBtFQEdFOpYMTDrAdW1AVutAU3NAduDANeVAD7dAFL1AELdUwCNjQFPlQF3owBfomxDAU7lAaDlALk9AaPkCksB8czc6-CIAVXQAHi7utogmiwADQQADkABMeqCAHx1JaAdP06r86jZXgRCJ8fj1-oCQaCAMbNGFwxGAuppPRQOrUlgAZ3IqlYmAATmJhPjsICIABvchQSZYABcYMJLFBfIgNGZmEw4NpwtBDDotNpjNUolB-1BAGUOMz2MJVMzNe1QQ1iMyADYmsEAIUwTG6wmt5AAvukIIyWCy2RzOtjeVB+VMFZDuuKg5LpbL5WCABJ4FTgm2g23M1QsFiiVAp23ES2WsO5vAADxZEaD+LwlrwzIVUrwAHcmCnG2wM5gUzRLezCBX3ZSIALsABZVC-CAAXlw6MxXPavzxRehEGAwAgmBLWHx3vBQ7wkuwSJ6dXI1NPg5XIQgAHEM2xiDQIIAoOXigGh3QBY-2xM+h5Wu6fibAAHQAFa0kBtbdMAcDAAAXmwCANAAcmAIDAGAGGgBAAD6uF4fheEQIABvJbIAx3KAIAeOEEdR2EQGhGHDjOHzfO8ILIBuJbekwcoQLSLDpo6K7Tu8HFcTx3JDiGnpMGILIQNqECuhAABkEAAEqYFWzLgl82YgtmK4APwCApm5ibSKAQMZ7zCkwmAAG4stIEC2Q5LIYWAWE0dRECANK2gCr0YAFK63FR3mEfRqiaOgtYtIxEkAKIAI7EM6ILxVumktEpYjMngmhgoIw4IIBzqWg63SYLSwDECwqiWrS4pgF6PrspyzQ8uQw4KqKFZSjKcoKkqqAqmqGparqMVsIaxpauaVq5uVzriu6TVMqyrX+n8gaSUKYJFrQ0YDfGibcbm6aZtmub5oWUJarapbluQVY1nWYINs2rbtt6XY9vifZgCtjHMJFzpTgC7ULj0DFTBAhK0pVYMANrkOl24sF8SUpZaXxvBi3zA9olpLlC0Igr80KkyjGU7hjyXOjjs742ohN4j1pPgywFNAmAAC6HmeSAoVhbRlyAABygCm1kLYV0ehoDkCugBgSoA1XIkYAx5GACreX4-n+wAAcBYEQcyUEwaItKNiycEIch8sQO+Gtaywv6Cv+tKAaB4GQdBsDALS1Y1eoTD0lAK6AC9mgBYmqYDtOy7bsG578GISh9FgEAA)
+
+有时，您可能希望根据某个属性在联合类型中查找类型。
+
+在此挑战中，我们想通过在联合类型 `Cat | Dog`中搜索公共 `type`字段来获取相应的类型。换句话说，在以下示例中，我们期望 `LookUp<Dog | Cat, 'dog'>`获得 `Dog`，`LookUp<Dog | Cat, 'cat'>`获得 `Cat`。
+
+```typescript
+interface Cat {
+  type: 'cat'
+  breeds: 'Abyssinian' | 'Shorthair' | 'Curl' | 'Bengal'
+}
+
+interface Dog {
+  type: 'dog'
+  breeds: 'Hound' | 'Brittany' | 'Bulldog' | 'Boxer'
+  color: 'brown' | 'white' | 'black'
+}
+
+type MyDog = LookUp<Cat | Dog, 'dog'> // expected to be `Dog`
+```
+
+**正确解答**：第一反应如下
+
+```typescript
+type LookUp<U, T extends string> = U extends { type: infer S } & Record<any, any> ? (S extends T ? U : never) : never
+```
+
+翻了翻 issue，很巧妙地[一个解答](https://github.com/type-challenges/type-challenges/issues/149)如下：
+
+```typescript
+type LookUp<U, T extends string> = U extends { type: T } ? U : never
 ```
