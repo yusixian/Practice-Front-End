@@ -12,6 +12,12 @@
 - [x] [20・Promise.all](https://github.com/type-challenges/type-challenges/blob/main/questions/00020-medium-promise-all/README.zh-CN.md)
 - [x] [62・Type Lookup](https://github.com/type-challenges/type-challenges/blob/main/questions/00062-medium-type-lookup/README.zh-CN.md)
 
+- [x] [106・Trim Left](https://github.com/type-challenges/type-challenges/blob/main/questions/00106-medium-trimleft/README.zh-CN.md)
+- [x] [108・Trim](https://github.com/type-challenges/type-challenges/blob/main/questions/00108-medium-trim/README.zh-CN.md)
+- [x] [110・Capitalize](https://github.com/type-challenges/type-challenges/blob/main/questions/00110-medium-capitalize/README.zh-CN.md)
+- [x] [116・Replace](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace/README.zh-CN.md)
+- [x] [119・ReplaceAll](https://github.com/type-challenges/type-challenges/blob/main/questions/00119-medium-replaceall/README.zh-CN.md)
+
 # 解答
 
 ## 2・获取函数返回类型
@@ -23,7 +29,7 @@
 
 例如：
 
-```ts
+```typescript
 const fn = (v: boolean) => {
   if (v) return 1
   else return 2
@@ -336,4 +342,118 @@ type LookUp<U, T extends string> = U extends { type: infer S } & Record<any, any
 
 ```typescript
 type LookUp<U, T extends string> = U extends { type: T } ? U : never
+```
+
+## 106・Trim Left
+
+- [接受挑战](https://tsch.js.org/106/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMAMBsEC0EAqAnAlgWwgGQFMAzAF0mSUqvICMBPCAQQDsSALAe2YYDEBXCAAoAAgENWRPgEoIAYkC0coElvOSQLYADgBtRqpJsyr0ozeXKzzEQBkZgO7dTUQHnagBucIAAww5CpADyoAfC4hAGH-AYO1AUuNANlNAOw9ALO1AELdAdW1AMm9AJjlAbx9AaPVANz1AFfjAPbVAADlAKjlABtMElMDAN0V5Yryy5MACJUATNMAwuUB85STkwAB9QBZNWMAvL0BfNw7AIAY7CEBo+UAgzTGXWZIAZ3ISOnUCCBIsbAIAEwgAXjRNzxIvAHIoAAkCTU0OCAB1DnRNXYhT3whgYAhAFL1ACuNAD-agC-FN5XG53R7PV6ncizFxjD6ACnUIABxAxsPg0CCAKDlAKfmgGh3QBY-2wSCR1PMAFxfBYAYzYADoAFbzelPADmwDg8GAAC82EgAMIAOTAIGAYAloAgAH1ZXL5XKIIADeVigGO5QCAHjKFdrpRAxRLlqsIABldSiGlrA7nc4AHzeAB1mLaHSQYYa1u5sMcvMaIAQAB6qZjbeYQeYbTDMNkfA6+gNBkOuAAkAG9TeaCABfVORogEdAQIUEADuxszAQA-IcPMQTkXSx8KSbJSAtTr5RBANK2gFXowAUruM2+3ZXrxTh1E8SOsVmsUxAAKIARz4xgANPP-asaZPMxAiOgOLhTsJ3Ug6cZNAQowR5sA+CRMJp5jCwO6IDTRPNr-sIABtchzjcCC3LxF2XTQfCOWsznDdB3jXU4YPeXwV3-QDgNA4wIJrbxzkQ5C3jw5DUM3E4MPAz1vXOKAoDw+DCJQqAAJIkCl0wiioKo6iYOoqA4IIjYeLeXwiMYtDSNY8jIJw6jHXtSciA4O4aFEAs+NOBSlJUoSRPXZiyKwr0OLUpCGN0oDxLAgzKIgWTXXw04TLAABdFtByHCBAGg5fJAFNrNz2xHMBQHID5ADAlQBquRVQBjyMAFW9iVJckqWAWkGWZVl0A5LlgHEeZi3zXl+WFYKIAJGK4rJSlqXmOkmRZdlOQQYB5g4TQ70wLhFigD5ABezQAsTRsMqEsq6rUrqvlBRFfUwCAA)
+
+实现 `TrimLeft<T>` ，它接收确定的字符串类型并返回一个新的字符串，其中新返回的字符串删除了原字符串开头的空白字符串。
+
+例如
+
+```typescript
+type trimed = TrimLeft<'  Hello World  '> // 应推导出 'Hello World  '
+```
+
+**正确解答**：非常经典的[模式提取做匹配](https://juejin.cn/book/7047524421182947366/section/7048281581428932619)！
+
+```typescript
+type Space = ' ' | '\n' | '\t'
+type TrimLeft<S extends string> = S extends `${Space}${infer NewS}` ? TrimLeft<NewS> : S
+```
+
+## 108・Trim ⭐
+
+- [接受挑战](https://tsch.js.org/108/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMAMAcEC0EAqAnAlgW0spBheARgJ4QCCAdgC4AWA9leQGICuEAFAAICGtAMzYBKCAGJAtHKBJb3E0AptgAOAG17ykyzPPS9lePGMMRAGRmA7t31RAedqAG5wAGGHAB5UAPluAYf8DB2oHozQABygKjlAdW1AMm9AJjlAbx9AaPV3QDc9QBX4wD21AMAG0xDQ90A3RQlAEjlAe69AELdALy9AXzdgwF+EwCfdQGqIwAIlQBM0wCAGCwhAaPlAIM1m2y6aAGc8GlJFOQgaLGw5ABMIAF40MccAcigACTllZQYIAHUGdGUpiAWXCGBgCDkADyGAY3kpmk3iYYXV9c2dvYmFvC7bZuPABTqEAA4lo6GxiBBAFBygFPzQDQ7oAsf7oNBoih6AC5Tr1rnQAHQAKx6uN2AHNgHB4MAAF50JAAYQAcmAQMAwGzQBAAPrcnm8nkQQAG8vlAMdygEAPLl8yWciAstkDIYQADKil412GsyWSwAPocADpUbV6mjfeXDBzYAAycgENEcivOF3kVAmPQgPVGmCoJOOs3tlydLogtgAJABvZWquQAXzDnoEcnQEAZcgA7oqo7YIAB+OY4K02xzJtPHdFKsCm3PYABKmBJyLtDoDrvdWC9PqVjbkztdIdDcYTSdT6bDEbVGezlfztqLipLZYr5ob-q7gZbnu9M0n1tt5prddts5cbLAHKlkoggGlbQCr0YAKVxaErP-NlOEUuxoI0Gw1DEAAogBHNhdAAGl-K45FuCAowgAR0AYbBDm4U0kBxXRlC7Ek5B6YA2BoTBlB6b5y0-CBrl4HpMM3ABtPAfzA25HH-QDlGceYFhbI4QLY0YjhcICaLo21GN0FinCWdjeMOcTeP4m5BIA4TFyWKAoHEzipL4qBaNkhj5OYxSW2UjjJO4lxpM0gSdKYkTsEWZSVNGOzDgkrj0B4jTQO0oS9NY5T9V1d8BAYR5eETfyjIWQLgtc0z3K08C5KsxTwrcmT4sshSfL899kpisAAF1jxPEAH0faVAGg5XxAFNrErHxlVlQDwY5ADAlQBquSFQBjyMAFW8kRRNFMWAbE8UJYl0DJClgH4HoUwTalaUZRqIHhLqetRDEsR6HECSJUlyQQYAegYZQcMwJg+igY5ABezQAsTTMFa+vWzbhp2ml6SZWUwCAA)
+
+实现`Trim<T>`，它是一个字符串类型，并返回一个新字符串，其中两端的空白符都已被删除。
+
+例如
+
+```typescript
+type trimed = Trim<'  Hello World  '> // expected to be 'Hello World'
+```
+
+**正确解答**：结合上一题，易得 TrimRight 的实现方法，二者结合即可实现 Trim
+
+```typescript
+type Space = ' ' | '\n' | '\t'
+type TrimLeft<S extends string> = S extends `${Space}${infer NewS}` ? TrimLeft<NewS> : S
+type TrimRight<S extends string> = S extends `${infer NewS}${Space}` ? TrimLeft<NewS> : S
+type Trim<S extends string> = TrimLeft<TrimRight<S>>
+```
+
+也可以用[第二种解法](https://www.typescriptlang.org/play?#code/PQKgUABBCMAMAcEC0EAqAnAlgW0spBheARgJ4QCCAdgC4AWA9leQGICuEAFAAICGtAMzYBKCAGJAtHKBJb3E0AptgAOAG17ykyzPPS9lePGMMRAGRmA7t31RAedqAG5wAGGHAB5UAPluAYf8DB2oHozQABygKjlAdW1AMm9AJjlAbx9AaPV3QDc9QBX4wD21AMAG0xDQ90A3RQlAEjlAe69AELdALy9AXzdgwF+EwCfdQGqIwAIlQBM0wCAGCwhAaPlAIM1m2y6aAGc8GlJFOQgaLGw5ABMIAF40MccAcigACTllZQYIAHUGdGUpiAWXCGBgCDkADyGAY3kpmk3iYYXV9c2dvYmFvC7bZuPABTqEAA4lo6GxiBBAFBygFPzQDQ7oAsf7oNBoih6AC5Tr1rnQAHQAKx6uN2AHNgHB4MAAF50JAAYQAcmAQMAwGzQBAAPrcnm8nkQQAG8vlAMdygEAPLl8yWciAstkDIYQADKil412GsyWSwAPocADpUbV6mjfeXDBzYRyK84XeRUCY9CA9UaYKgk46zK2XW32iC2AAkAG9laq5ABfQMugRydAQBlyADuitDtggOv9Acj0djCaTgeDauTEAA-HMnHHE8d0Ur2SAJVLeRBANK2gFXowAUri06-XuTLWThFLsaCNBsMAxAAKIARzYugANOOrnJbhBQxABOgGNhDtxTUgcbplHJXXIesA2DRMMoet8wKaINdeD1jzMIABtPBjhe3RyT6fKZzzBYnXQI450A0YjhcGd30-GhvynXR-ycJYgJAw4UJcSDoJuWCfwQ81FigQj0NA9DMKgD9sLg39EItMCYygVC6IgqDyJgqi8IAwioCArjDkgtDwIwlj50o3C-3wpYoH1XVBwEBhHl4GMZMYuSFOAoSsMXHD4PEgDGOYzSvzEmiCOkwd9I0gBdNka07LsIEAaDlfEAU2s7PrHswFAPBjkAMCVAGq5IVAGPIwAVbyRFE0UxYBsTxQliXQMkKWAfgenjaNqVpRlvIgeEQrC1EMSxHocQJIlSXJBBgB6BhlDPTAmD6KBjkAF7NACxNMw8oiwritisqaXpJlZTAIA)：
+
+```typescript
+type Space = ' ' | '\n' | '\t'
+type Trim<S extends string> = S extends `${Space}${infer NewS}` | `${infer NewS}${Space}` ? Trim<NewS> : S
+```
+
+## 110・Capitalize
+
+- [接受挑战](https://tsch.js.org/110/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCM0AwQLQQMIEMAOBLALmgNlgF4CmkSilV5ARgJ4QCCAdjgBYD2zDAYgK4QAFAAE0rAGZ8AlBADEgWjlAkt5ycJALYZ8aVYkKqATgXLlZpiIAyMwHduxqIDztQA3OEAAbpseQqQA8AFQB8TiEBg7UAwHUB1bUAyb0AmOUAQt0Aab0AAOUAqOVDAWetAG3jAI2NALjlAck1ATMVAGH-AN0VATXlUwF35QEBjQHzlQHYLQCAGGwhAaPlAIM0mp06cAGdyHDoMEggAY0xcAmISABMIAF5UMfdJzwByNhJ8fA4IAHcOfXwpld8IYGAIEgAPQeHVGZxtmiGVgAkNrd39w5XyTqcmk6ACnUIABxXBsPg0CCAKDlAKfmgGh3QBY-2wcDgMN0AFxnHrDNgAOgAVt08fsAObAWBwYBENiIFAAOTAIGAYFZoAgAH0udyedyIIADeWigGO5QCAHpzeRKORBmaz+oMIABZOiucYeEieADKF0uqmYU26EG6OH0WGYpJO8y1V11+ucABIAN6m8QkfQQHgAX0dztdEAASiQjR6AgB+e0OgCqGEG+lG3XVPF8XodAaDTgxEA1rLA7MlEoggGlbQCr0YAKV2a4rzfJlWA0+xwEDlQwdEAAogBHPgEAA0reuJFuEA9EHE+g4aggK2EjcQuII+BIZsDwD4OCw+G6PzAjZGaHjBvmAG1yC2+7dPO3O-hPEqVUsvCtxBwODQ0Ppjj2Vjwny+375fF3j1PHBzw7Ahr2VRYJnvHgAHkYIAIUYP13wnWCEKQ45-0Am5gIvMCb0gtVVkfR5XxQz8nwgH9MIAqATxwkDL3A28oPVFZyJo7D+1w0CrwItxWNWNByMYTi6KAxj8IggSiJWGhyPgsTewYvC+Ok1VlhWYZyJQJT6O4yS1JY2Sjn-CcABE9Ik1TmMIzSSHIlsrJU3jbJkzTxHInhnIMmz+I0+9SXIkEfLPPz1LvNi2HIl5Qp4pj-Mi1YsHIgBJOLDLcgK2IJciACkMvC4zNIAa3IgBpQrXMSwSVnwciABkqoSiLarUciFWaqTivvZhyPpLqjLs+8OHImDBqypKVgwciAAUJpq2S23IgBFBbWtk38P2Qv9aOU3zqo2zSNzMlYNXWnq2JwcjvAu4a2L4ciIzu9z7wAN3IgA1F7stWHZyIAdR+qbLnIgANYHarociAE1IdkohyIALU4gBdbMcxACtKylQBoOXiQBTa2xytpRZUByBOQAwJUAarlBUAY8jABVvZFUXRLFgBxfEiRJfRyUpYAxG6HZXWpWkGQpiAEUZ5m0UxbFulxQliTJCl4GAboOHwFcsC4XooBOQAXs0ALE0rGl1m5YVrnlZpOlGRlMAgA)
+
+实现 `Capitalize<T>` 它将字符串的第一个字母转换为大写，其余字母保持原样。
+
+例如
+
+```typescript
+type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'
+```
+
+**正确解答**：还是通过模式匹配，使用内置类型 Uppercase 进行大写转换
+
+```typescript
+type MyCapitalize<S extends string> = S extends `${infer F}${infer Rest}` ? `${Uppercase<F>}${Rest}` : S
+```
+
+## 116・Replace ⭐
+
+- [接受挑战](https://tsch.js.org/116/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCM0GwQLQQEoFMAOAbAhgYzUiURNKICMBPCAQQDsAXACwHs7qAxAVwgAoABHIwBmXAJQQAxIFo5QJLeUhmgC22HIsRYAlooBOOLESKTjEQBkZgO7dDUQHnagBucIAA3SqCAHgDKAGggcdLJd4AKiwAfA4QgGA6gOragGTegExyju7h0oAhboA03oAAcoBUcoAK2rEJDr7+4YD-ZoBGxoBcco7B4YBADFYQgNHygEGaDQ7tDADORAyUGGgQOpi4BAAmEAC8qMP4aK4A5L39nRA4QxCidACE897zm7sQ8zgA7mid-mjzIRDAwBCA+OaA2OaA9GZHS+er66fnlztE7QcDRugAp1CAAcW0TC45AggCg5QCn5oBod0AWP9MBgMDCdABcdy6eCYADoAFadQksHQAc2AsDgwAAXkxEABhAByYBAwDA3NAEAA+gLBULBRBAAbyKUAx3KAQA9+cK5XyIJzuR9pi45u4IGgAB6KOijFadBg6TR0SneIpKTU6tB6g1Gk1miDBK26-UQQ3G003KYa7WulYOAAkAG8TcI0DoIAAFIYAXxDFvjobo4cjUZYhtjQKgAH4fH5LX6bW75vMiLmIO5yxBsY4QzG0Engkn05nszXKzyQLL5UKIIBpW0Aq9GACldGj3ewLFVzNCoKQwICrgxAAKIARy4+m8y61-Tw89jGwLR34H0QBP0WBtlPOwC4DE0WE6ZbAdwXfQG86mzhGc32LBY5BrIBOiHPMwGgcI-7XGAKp4DgnSfFMADaRDbruDCuGuG5YK436zAskEAWsoHgXshHXGR-7kSEISeKhO5oHumHrvouEzG4f5ETopFHDxnEUUchGEeBNF0VAaGMRhWGsXhHHCUBxF7BBUG0YJ-7ASJtH0ehzHYWxaoEepCkgXsfECZxmliSuDFMdJOGyb+8ncYpvF6MpLDmU5lnaZJukyexv6gUFqmlqJYAALrcl244ThAgDQchkgCm1jFvZTi+4BQDcgBgSoA1XLioAx5GACreaIYliuLAPiRKkuSVI0vAwBCJ0Zw6AyTJskQNzIkVJWYjieKdASJJkhS1K0sAFxYHemhsN0mUQIAL2aAFiaFg9WV-WDdVI2tSy7JKmAQA)
+
+实现 `Replace<S, From, To>` 将字符串 `S` 中的第一个子字符串 `From` 替换为 `To` 。
+
+例如
+
+```typescript
+type replaced = Replace<'types are fun!', 'fun', 'awesome'> // 期望是 'types are awesome!'
+```
+
+**正确解答**：注意 From 为空的情况
+
+```typescript
+type Replace<S extends string, From extends string, To extends string> = S extends `${infer Pre}${From}${infer Post}`
+  ? From extends ''
+    ? S
+    : `${Pre}${To}${Post}`
+  : S
+```
+
+## 119・ReplaceAll ⭐⭐
+
+- [接受挑战](https://tsch.js.org/119/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCM0JwQLQQEoFMAOAbAhgYzQEEstIlELKyAjATwkIDsAXACwHtH6AxAVwgAUAARwsAZrwCUEAMSBaOUCS3rOZoAtthwrEWAJYqATjlJQyMsxEAZGYDu3MmUB52oAbnCAAN0GgsSwAeAMoAaCG59dlUAgBV2AD5nCEAwHUAAOUAqOUB1bUAyb0AmORcfGLlAELdAASNASHNABW00zOcgkJjAf7NAI2NALjkXCOdAIAZbKEBo+UAgzXaXZ2dmAGcyZloMNAh9TFwCABMIAF5UafwiEi8AcmYIegwICcGNgI2II9ONyIhgYAhAfHNAbHNAejNT0fHDsn7nXsvACnUIAHE9KxeNQIIAoOUAp+aAaHdAFj-rGYzAwgwAXNchnhWAA6ABWg0x7H0AHNgLA4MAAF6sRAAYQAcmAQMAwMzQBAAPoczlczkQQAG8rlAMdygEAPdncsVsiCM5mvCZuGZrbw+fYADxUjFmgwgg2Y+h0jEJAUqqhVao1Wp1eoNEAiJrQ6s12t1+suSyVaFVdrNzgAJABvPViND6CAABSmAF8-UbI-7GIHgyH2Nrw18oAB+QLBY3u02ajYbMjpiA+QsQZEuP1htAxiIxuWrTxeRPaw1Z8JRFNkcslsCs8ViiCAaVtAKvRgApXDqi-s8qU6dQE7YyiC+iAAUQAjrwjAEV8rxnhtuGIGIs6chDLEBijFg7YS0INgLxmDosO8wIu8DhBnfFhAANpkHc92YLx103bx6w8dYNjEdh2GoHB9DODZ4MQ44YPYC40Ng9CLkiPwAN3NB9xAjcjC8CCFU2dCUKQ+DCSQnC8NOaiENw-CoEAojgNAsiKMbaDYJQmjjmE5jYMwsT2HQxi8IIoCSLA8iVkg7wth2CA9gOJDTmOCStjGO82LkriFN45TKIEuCENE-MsIwpjLKE1jIlkjjCOInjwPM-iUJwkTWLsvTpPElz2NXdzuNIrz3Aslj9DipC4NooKrPi1KjLc+TPKUmL+Jg6hYLSgqAtOArkoc-KCXy5zXPCrKopy+V+KQlqHKMgBdZkWRAScpwlQBoOXiQBTa16qdJSZUAyEuQAwJUAarl+UAY8jABVvOEESRVFgHRLFcXxIkSXgYBREGAB3IMKSpOkpogaFltWxEUTRQYMRxPECWJUlgEGdgsEfHROGGKBLkAF7NACxNaw7vWx7np2t7zppekpTAIA)
+
+实现 `ReplaceAll<S, From, To>` 将一个字符串 `S` 中的所有子字符串 `From` 替换为 `To`。
+
+例如
+
+```typescript
+type replaced = ReplaceAll<'t y p e s', ' ', ''> // 期望是 'types'
+```
+
+**正确解答**：在上题基础上，递归！
+
+```typescript
+type ReplaceAll<S extends string, From extends string, To extends string> = S extends `${infer Pre}${From}${infer Post}`
+  ? From extends ''
+    ? S
+    : `${Pre}${To}${ReplaceAll<Post, From, To>}`
+  : S
 ```
