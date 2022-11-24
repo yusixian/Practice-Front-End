@@ -18,6 +18,12 @@
 - [x] [116・Replace](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace/README.zh-CN.md)
 - [x] [119・ReplaceAll](https://github.com/type-challenges/type-challenges/blob/main/questions/00119-medium-replaceall/README.zh-CN.md)
 
+- [x] [191・追加参数](https://github.com/type-challenges/type-challenges/blob/main/questions/00191-medium-append-argument/README.zh-CN.md)
+- [x] [296・Permutation](https://github.com/type-challenges/type-challenges/blob/main/questions/00296-medium-permutation/README.zh-CN.md)
+- [x] [298・Length of String](https://github.com/type-challenges/type-challenges/blob/main/questions/00298-medium-length-of-string/README.zh-CN.md)
+- [x] [459・Flatten](https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md)
+- [x] [527・Append to object](https://github.com/type-challenges/type-challenges/blob/main/questions/00527-medium-append-to-object/README.zh-CN.md)
+
 # 解答
 
 ## 2・获取函数返回类型
@@ -456,4 +462,119 @@ type ReplaceAll<S extends string, From extends string, To extends string> = S ex
     ? S
     : `${Pre}${To}${ReplaceAll<Post, From, To>}`
   : S
+```
+
+## 191・追加参数
+
+- [接受挑战](https://tsch.js.org/191/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMCc0QLQUL-xgCpUEPKgHU0kx+DcAjATwgFkBDAYwEsBTAKwgGVaBrAewCdKIAKAAIBbGg0YBnDj0oBKCAGJAtHKBJb0WVuAcwCuw+gDsALhNy4F5iIAyMwHdupqAD4IgRlcIgykYBm2iIG--QIvRdhCAedqADc6AAHKAVHKA2zaA0eoQAAYAggAOyQYAJolaugaGADwAYvoANBCJ9vGAMP+An9qAcXKAm36AWdqAIW6Av4pYgN4+cfFFVYCncoBTypGA33KA8IZdCYlVgCvxgHtqkYANpm1YCQDi8YBADPHrEICnRoCQ5gm9EM2AAkb72IBueoAU6oDU5oB8OuhdgFxyk-En2BuB8T+GJGkSajcWjJQy4P5pCBFCAAXgElAAXBB9LoiPRuKUiEiJIZgfpNPIYY4UcI0dxAhD6BAAEr0CTaAA2hlhZVSGSyOj0RkKJQgRE4nAZ9HcjlwwGAEEA+OaAbHNAPRm8KRJLJmOxuNo+NKAA8kfzBcL9ITiaj0bgfvFAo5ADTmgERjQAYRoBTc0AV4G1CAAbREYiYUi4vAAuvwABaGQzJCQI8WaWiGAPaIgAOmonGEwFEdC90l48muEAAIvQAG5x2icCCAKDlmq7AOGmgAOvf1BkNh8XpAtxwycFM0b0yYCUdL59zUejpRCUwHA0GIeia9F0CR0xAAR20dMMxf0iAALJvYABWaiyC0QbOrKMxohlwCn5oBod0AWP-10Ph4DGagBuOSOM8TTAODQYAALwDRAAGEADkwBAYAwDAUAIAAfXghDEIQiBAAN5ZpAGO5QBADzgpDcNgiAIKgylWTSfRMmyLl8mhKdDAyCQBDjRiNE0MMIHcEhDTY-QSFKcoWWozVaLI+j+EYuNmNY9UPHRMotAkTipJk6lcAAfgYpi5KRV0xI5CReN9TjlKgRUCxNaCQBwvDEIgQBpW0AVejAApXQBo+Usqz4IIyDaGEZIeGZYiAG8IAAUSXSgGVKILNTSahmQAXwgDxuCTCAAHJBEpRAXzCoV8TpYBtFXBkJBSoj-ipIDKDnBA4RSUjyM5XI8n4RFkWNDE+VVPECVhI1SXRTEBSFEUwGI2l6SZaqFVavr2qxCAcS6rUdUG-VOKVMziIqucACYWVq9kKMa-hOPzThaHSUptDI+gPHVId7BGsqaTpRlDF2uF+G1CArubW79CHE6zvSUrIWoSq6RZV1cEi6L8hC7QwryLb6GgUoxte6B7HsYpoai+gYryeHEeR7a0ZepltqxnGoHFVxjEnPGYsnbgkvJKB9rIjkcm5K72H0TgAHdeR+m67vSbGwF9KCYLc6zAGg5MJAFNrVy3I88zcEcQAwJUAark0MAY8jABVvO9gwfcVn1fd9P2-eAe30CQBfRf9ANAjWIGvQ3jYbR9zbfCQPy0a3fwkQUCrXEwHAgQAXs0ALE0bE902n0BC2-atgDgLAwiwCAA)
+
+实现一个泛型 `AppendArgument<Fn, A>`，对于给定的函数类型 `Fn`，以及一个任意类型 `A`，返回一个新的函数 `G`。`G` 拥有 `Fn` 的所有参数并在末尾追加类型为 `A` 的参数。
+
+```typescript
+type Fn = (a: number, b: string) => number
+
+type Result = AppendArgument<Fn, boolean>
+// 期望是 (a: number, b: string, x: boolean) => number
+```
+
+**正确解答**：显而易见，本题 easy
+
+```typescript
+type AppendArgument<Fn extends (...args: any) => any, A> = Fn extends (...args: infer Args) => infer R
+  ? (...args: [...Args, A]) => R
+  : never
+```
+
+## 296・Permutation ⭐⭐⭐⭐
+
+- [接受挑战](https://tsch.js.org/296/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBMCcBsEC0EAKBTATgWwK4BcBDfASwHsA7SZJWu6gIwE8IA5Qs-MiASQGtcFbgAoAAgAdCFACZSyJTAEoIAYkC0coElvVYPJUo1FYYiAMjMB3btWqA87UANzoBUAwBAqgbx9A0eqAQt0AWioCTjQOhKgGH-AYDoOLoA28YBGxoAIRoACRoCQ5oD3yoC-AR4+gA6mgCN+rkHOgEAMFlAABgX4TOLoAM4Axpgk4vjURSUQJTgQALxoWHhEpJQAPADkAIJ9EAA+EH0AQsNjfQDCfQB8ANwQwMAQANqDfQA041N7c30AuqOb24fzh1OnY1sH40OXJ2f3u+NXjy93R4dP+99zp9Ju9tsdqAU8rkIAsIIAKdQgAHESPgABa4BgQQBQcoBT80A0O6ALH-Ufh8OJSgAuNb4CqogB0ACtSrSyJgAObAODwYAAL1RSFmrDAIGAYDAoAgAH0pdKZdKIIADeVcgGO5QCAHpLZRqJRBhaL6uh2jgCMRdD0ACp7ABKZXwrQgpthbQ2ptO6AAHvh0DJSpsKOgAG5YU4Afk2p3JkCtpRtbo9XogkZtIc25ogtLTGENXRNAFFXeUADa4aToM2W60LBbHcmhiCi8WajUQQDStoBV6MAFK6AaPl1Q25TqSNhxCybXqIABvCDZgCOuEI+b2uZK5RtAF8IAAzTBkbDjUR6pDlVGz-Oe1llYAEEj50p9XXFfXlQilMq2jbUBfoJc9Kcz-M9DOdY1em2BY9i2IZjgrHY31dRd8C-adZz-DojW6Ch+iGM4QUw+YQPOf4QWeW48NBYEbleAivkI8iHl+L4iK2YF8LIn5SNBcDIOg2D4J-JDM0AtCsJmDCZhw0CLgBKifnw1j6Io8SjlkmjGMBBi2NBZigXUtSIJAziPzg79EP-FCTQYMgyGPKRcI2NdZyfPZ8EwXB0HoxznL2WyrxcjioHfT9DN-Yys16X0A0waydKg8ExRAbsey1QBoOUAADlAFNrOKe21EVQGoWFADAlQBquUVQBjyMAFW8iRJMlKWAakDwZJkWXZTlgCkUoAHcsB5PkBRyiB8VK8rSQpKkaTq5k2Q5BBgFKCyL0oUoesAF7NACxNMwBsq4basZMb2V5flBR1MAgA)
+
+实现联合类型的全排列，将联合类型转换成所有可能的全排列数组的联合类型。
+
+```typescript
+type perm = Permutation<'A' | 'B' | 'C'> // ['A', 'B', 'C'] | ['A', 'C', 'B'] | ['B', 'A', 'C'] | ['B', 'C', 'A'] | ['C', 'A', 'B'] | ['C', 'B', 'A']
+```
+
+**正确解答**：题目字越少，难度越大（x）
+
+本题实现全排列，同时要利用联合类型的分散传参这个特性 [Distributive Conditional Types
+](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types)
+
+翻 issue 的时候翻到了这个优秀的解答：[TS 类型体操笔记 - 296 Permutation](https://juejin.cn/post/7165170011282079751)
+
+`[T] extends [never]` 是由于 never 无法被准确判断，任何`extends never`的条件语句都会返回`never`，而我们需要返回的是空数组，在小册中的 [套路六：特殊特性要记清](https://juejin.cn/book/7047524421182947366/section/7048282437238915110) 有提到这一点。
+
+```typescript
+type Permutation<T, Rest = T> = [T] extends [never] ? [] : Rest extends Rest ? [T, ...Permutation<Exclude<T, Rest>>] : []
+```
+
+## 298・Length of String ⭐
+
+- [接受挑战](https://tsch.js.org/298/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBMCcAcEC0EAyBTAdgcwC4AsIB7AMwgGVcAnASx0mSSeYYCMBPCABRuwgDEAhjggAKAALYkABwA2w9AEoIAYkC0coElvVbnQBbOYJ1JZNHVUGyGDFTYiAMjMB3blaiBC6MDp3oHVtQGTegJjlAIW6A-qmAZXqAMP+A3j6APPKAcXIQAAaUtDgqslh4+LEQgEAMzhAAfBCAFOoQAOKm+ACurBCAUHKAp+aA0O6AWP-4uLjSAM4AXMDAuO0AxvgAdABW7UNEVNjAcPDAAF74SADCAHJgIMBgYKAQAPoHh0eHEIAG8n6Ax3KAgB77x3d7EJvbPRC47NLoaKkEAPIkCXRsAAecgQdAADx0mAAJu0IO1qID8gBeCgAbQA5CkcAQMQBdMBvD5fHH4P4AnAgsGQrCw+GInAAGggABVqVC6QjEtg0XiIKjeSiKOzaXDYgASADeXMBAF8pXQSOgqBAAEroBGy2IMAD8JLS5IZwPVCOZaJlTIgQ2tLLxuQYnVZmOxaXxzxAt3uRwggGlbQCr0YAKV0A0fKer0HR5bGj6Sa4V7vT6SiAAUQAjuULMyk+CPv1Y7KICQqERdBAMeIiegkIMLC6NcByrgaLJ2hjthWIP1BO0NfyIGiGFmc7ggan07IgRhSYbuUCMRjcsyAAy5BcD7PoXMjtMWCffMn-I2zgDW5V0NCPRHnzIAbCvGWuh1ux7upweZxiqOg6IIrxAAKx3g+G7DqOO6Tgab6ArO5BEOUMIAITJuU0j4EQmA0Kev4AIy3quBI7B6YbeoA0HKAABygCm1qGYYRgRDD5IAYEqANVy5yAMeRgAq3s0rQdN0vQDMMYwTFMMwIMAwjtAA7sqCxLGsdEQA07GcW0XQ9H0gyjOMkzTLMwDtEQsgNjQaHtHJgAvZoAWJqOEp3GqXxGmCdMiwrOsTxgEAA)
+
+计算字符串的长度，类似于 `String#length` 。
+
+**正确解答**：不讲武德版当然就是 `type LengthOfString<S extends string> = S['length']` 当然，讲武德版就是这样 ⬇️
+
+```typescript
+type LengthOfString<S extends string, T extends string[] = []> = S extends `${string}${infer Rest}`
+  ? LengthOfString<Rest, [string, ...T]>
+  : T['length']
+```
+
+## 459・Flatten ⭐⭐⭐
+
+- [接受挑战](https://tsch.js.org/459/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBAsCsCcEC0EBiAbAhgF2wUwDtJklSziAjATwgC8ALAewFcqBLAWzYIHMIAKAAIBjehQBOjAJQQAxIFo5QJLeczOPGYqxYrJ0RAGRmA7ty1RAFOqBN+MBUcoERjQBhG8wDD-gA3lAAOmBAyMCZioAA5C4FLjQOvKgA6mgCN+gCFugN4+gNHq9oBueoAocoAr8YB7aoCCRoDOeoBoyiHBkYBADMYQgNHygEGaAFz5AAaV2ADOxNhUAA54EABmWLiEEAC8aO34BAA8ANoAjAA0EABME0MAzBPQALozQ0OwixuLAHwQwMAQoxPTEPMwE+vEleX5OyYQAOJs2PTMFBCAUHKAp+aA0O6AWP-0uAa1RKexqogAdAArargxjiHjAODwYAMJAAYQAcmAQMAwGBQBAAPrEkmkkkQRwhQDHcoBADyJZIZhIgOLx9SavRw-QGAEE1BA8AAPfoAE2qEEwBCoQ223QgvPE-KFhFFB24LTwCoAkvgOBNwfq1RqIAAlPDVbCLYgAfgO+vB-G1eA4ipFYolUsWEBtGE5hAGjo4OxKBwDiykev1Po6g1N5q2lqgweleIJjIZEEA0raAVejABSuBXpafJLM4DTh2AgbOaAG8IABRACOzEw6AmtYFTWE5YAvq1JM6AOSCStIUTN9CEHhm4DMbBsdDVfusxrNYSYapm2VDYhtjvYAYNpvoAZRrnSrYzbbn7ftvCd-eN5vHvp+w5TCanJbng7jN8nBaXsZr13e9DyfX1BlfIZJg2L9X2grYrygHdbz3A9HxPF8f2OOZ-xWNZNm2GYsPfBZzgAoCUJA9DnwgmsWkYRhg37ChVH7ABuKZgxGAAGCAuwmft6MYFjxH7QiDjohimJE9jOIgHi+IEoSZPIy18RAAtCyZQBoOU8QBTa00wtmVxUBiB2QAwJUAarlKUAY8jABVvf5AWBUFqghaFYXhREEGACVqgAdw1FF6HRLEoB2H57Mc7AgRBYAwXoKEYThBEkWAapGHQGc2EYAhajCiBABezQAsTUMKKYpctyks81FMWxXEwCAA)
+
+在这个挑战中，你需要写一个接受数组的类型，并且返回扁平化的数组类型。
+
+例如:
+
+```typescript
+type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, 5]
+```
+
+**正确解答**：经典的数组拍平，需要注意的是...展开需在外层，`Item extends any[] ? ...Flatten<Item> : Item` 是不行的......
+
+```typescript
+type Flatten<Arr extends any[]> = Arr extends [infer Item, ...infer Rest]
+  ? [...(Item extends any[] ? Flatten<Item> : [Item]), ...Flatten<Rest>]
+  : []
+```
+
+## 527・Append to object ⭐
+
+- [接受挑战](https://tsch.js.org/527/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCsBMDsEC0ECCAHdBTAdgEwgBcB7CYgIwCssBjQyZJJ5h8gTzXwCcsOBpLgEMAzsQBuwgNYcAFAAFyPAMwAGSUIBsAThrCAlBADEgWjlAkt5GK1Okkm9hDBoacRAGRmA7twdRAedqAG50AAcoBUcoBccoClxoDHyoDftoAFSoGADaaA6tqArdaAIW6A3j6A0eqAQAyAp9EZIYBspoCQcgGAQ8qADqaAMP+AK-GAe2qAZHqAkOYJKeEZmZ4QgNHygEGaAFwdAAZDhPZQhGzYEAAqWMKEEAC8EADeEACWeL0QAOQAjNsQAL4M45MASrMArgA280sY2PhTxADyVLSEADwzcwA0O2JBNdLlhtv8ACwAPggwGAECwAA9sHQsAQSBByFgVutNjt9v9AcCsFtwUcGEMBh1oYAKdQgAHE1oQABaXcgQQBQcoBT80A0O6ALH+mYRCOhhL1YSMaEyAHSUYSS4hcADmwDg8GAAC8mUgAMIAOTAIGAYCNoAgAH1zRbLRaIIADeWSgGO5QCAHmara7TRADUbTliHrg8M83lYvlN4QjCH7hBALjR5XhPnMuGscAr-oIcGxIf8AKqh8P4SMJpMpiAANWhS2WDAA2nxeOscBBbGxiAAzaYAXS2UxrvHbYEOEAAZCtq036xAs53S-3cxH6y2sFwIIGGAB+bE18dN1vLqhTwM19tkqBbHBYMSL40gF1uy0QQDStoBV6MAFK6dG+380ew1rAC26Hl8zetiACiACOlxAv8wFIh8RwQC2XDED+OxyN6SASkC1y4AqszAJchBrNcwjbF6ExYuGcy7IsI5QE2WzbDQgiECRUCEiC9EKjwuAkccYBARRhDQcihBURWDB0TsjHMQwbHEjsnFYNxDBMkhcnkMQxBYWm-akZMAmwNRla0bw9F4MQCoHAAPhAlz4FgLZJqiMlAuxOwAO5MoyoIMMItlbIQXAgjpfFkUQsyCTBdAGWJxlsKZ5lWTZdkOWeeDOUS9EeV5LEQL5OD+YFWDKapWy7MF-HhUohniSZknEG5OWyfRbBYNc1z1TleVbC2QLCEVvEVXMQkfFVMWNrVDEdelrnbC1bVTVAXXwb1RVQGswgALLEMyi5nJcwjCGsgjdStEDWbZeD2Y5aUDaFjF9ZGSxVgww10J8YEQdcny+k8rzvG9Am7P82wqT+oL-OpmlYGmmZhUNkUiZCmYvQj73gUC32YH6Ab-V8+nA6D4MQLssMCa9hCwEjvwo8JaOfZjjz+n9QafAJSjA+tW07Vwe0HUdYLLURWLncl12k+F5NKFTYB9kaYAmh+d6ANByfiAKbW74fl+8vgFA0KAGBKgDVcnagDHkYAKt78oKwqisA4pSjKcqKsqCDAGmwhuYu6qarqDDQjyZsW0KIpisIErSrK8pKiqwCiMCBHEDgowQNCgAvZoAWJruAHVvB6H9sR572p6p6YBAA)
+- 实现一个为接口添加一个新字段的类型。该类型接收三个参数，返回带有新字段的接口类型。
+
+例如:
+
+```typescript
+type Test = { id: '1' }
+type Result = AppendToObject<Test, 'value', 4> // expected to be { id: '1', value: 4 }
+```
+
+**正确解答**：先将交叉类型整出来，再把交叉类型遍历一遍。
+
+```typescript
+type AppendToObject<T extends Record<string, any>, U extends string, V> = {
+  [Key in keyof T]: T[Key]
+} & {
+  [key in U]: V
+} extends infer Obj
+  ? { [K in keyof Obj]: Obj[K] }
+  : never
+```
+
+看到一种很有趣的 [解法](https://github.com/type-challenges/type-challenges/issues/536)
+
+```typescript
+type AppendToObject<T, U extends keyof any, V> = {
+  [K in keyof T | U]: K extends keyof T ? T[K] : V
+}
 ```

@@ -54,11 +54,11 @@
 - [x] [116・Replace](https://github.com/type-challenges/type-challenges/blob/main/questions/00116-medium-replace/README.zh-CN.md)
 - [x] [119・ReplaceAll](https://github.com/type-challenges/type-challenges/blob/main/questions/00119-medium-replaceall/README.zh-CN.md)
 
-- [ ] [191・追加参数](https://github.com/type-challenges/type-challenges/blob/main/questions/00191-medium-append-argument/README.zh-CN.md)
-- [ ] [296・Permutation](https://github.com/type-challenges/type-challenges/blob/main/questions/00296-medium-permutation/README.zh-CN.md)
-- [ ] [298・Length of String](https://github.com/type-challenges/type-challenges/blob/main/questions/00298-medium-length-of-string/README.zh-CN.md)
-- [ ] [459・Flatten](https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md)
-- [ ] [527・Append to object](https://github.com/type-challenges/type-challenges/blob/main/questions/00527-medium-append-to-object/README.zh-CN.md)
+- [x] [191・追加参数](https://github.com/type-challenges/type-challenges/blob/main/questions/00191-medium-append-argument/README.zh-CN.md)
+- [x] [296・Permutation](https://github.com/type-challenges/type-challenges/blob/main/questions/00296-medium-permutation/README.zh-CN.md)
+- [x] [298・Length of String](https://github.com/type-challenges/type-challenges/blob/main/questions/00298-medium-length-of-string/README.zh-CN.md)
+- [x] [459・Flatten](https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md)
+- [x] [527・Append to object](https://github.com/type-challenges/type-challenges/blob/main/questions/00527-medium-append-to-object/README.zh-CN.md)
 
 - [ ] [529・Absolute](https://github.com/type-challenges/type-challenges/blob/main/questions/00529-medium-absolute/README.zh-CN.md)
 - [ ] [531・String to Union](https://github.com/type-challenges/type-challenges/blob/main/questions/00531-medium-string-to-union/README.zh-CN.md)
