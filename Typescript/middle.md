@@ -24,6 +24,12 @@
 - [x] [459・Flatten](https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md)
 - [x] [527・Append to object](https://github.com/type-challenges/type-challenges/blob/main/questions/00527-medium-append-to-object/README.zh-CN.md)
 
+- [x] [529・Absolute](https://github.com/type-challenges/type-challenges/blob/main/questions/00529-medium-absolute/README.zh-CN.md)
+- [x] [531・String to Union](https://github.com/type-challenges/type-challenges/blob/main/questions/00531-medium-string-to-union/README.zh-CN.md)
+- [x] [599・Merge](https://github.com/type-challenges/type-challenges/blob/main/questions/00599-medium-merge/README.zh-CN.md)
+- [x] [612・KebabCase](https://github.com/type-challenges/type-challenges/blob/main/questions/00612-medium-kebabcase/README.md)
+- [x] [645・Diff](https://github.com/type-challenges/type-challenges/blob/main/questions/00645-medium-diff/README.zh-CN.md)
+
 # 解答
 
 ## 2・获取函数返回类型
@@ -90,7 +96,7 @@ type MyOmit<T, K extends keyof T> = {
 ## 8・Readonly 2
 
 - [接受挑战](https://tsch.js.org/8/play/zh-CN)
-- [我的解答]()
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBAcELQQEoFMCGATA9gOwDYE8IAmSeOci0gI0IEFsAXACx0IDEBXCACgAFVGAMw4BKCAGJAtHKBJbwkAnNFjyFxmKgCtkAYwZwA1snwBnUqXHmIgDIzAd26moAPgiBGV0DsMYBlrQFeBgCqVA3-6BF6MAYf8Aia0A5+IgABUQIQE5TQG34-0AKWMB5xMAgBjsIQDztQAbnQAA5QCo5QCwEwApXAAMAWXwUDBwCIgAeABUAGggAaXsSgMBg7UAyPUBIc0ASOUBZz0BvH0Bo9UAQt0Ah5UAHUxKGksAYlRLWkrSoUhWSwHBjQCztQBS9QD7owDt-QC45KqUCCfmSicA9HUByA0AxtJTAIM1AHPNAKnNABeNAbPktgKATCV9oB-eUAAkZ9R6AX4TABvKp0AV8qAb+iAoBGHUA8wqAOzMCtcLjV8I0OjlAOwW6wgpEA0fKvdIlGkMExQACWjGQckEqC0yAgDUwWAgAG9SFAGAyGLhkAAuCBGBhyJkAc0FEHQyCMWllAAdhThJdLZdgFVAoFpMABbdVihjIdCSqiYTBigSkAC+6WN2GlEAYPMwkoquOU9W5WBaAHJhaLkCGIAAfCAh5WqjVa7AhxwAXn5ivDYslACIABKGXNNRUJtUMzUM7UQXOCO1UVByYuK41mi1WyVs3BGZAlqAujZC70AOmznIzBeQuFwmFzEGAwAgAFE5HJMHJJVoBNhMAwIApUEYjAy5dgIKh94o8RB1Wv1SyGPhSF6sMOy0mq2eJw25Gw7XOF2XVd103bdd0vQ9j1Pc8IMuQhb0we85EfZ8R1bc1kEtdAIAzGUOE5QCAHlWk2Gl0kcQAKdQgABxEUmA4KgIEAKDlAFPzQBod0ALH+mAYBh1SMcUFzpLQmGHdQjGHdc5WAaBgAALyYOAAGEADkwBAYAwE00AIAAfT0-SDP0iBAAN5CZAGO5QBAD10wybJ0iB1M0x97wgP0rwDRoWlaCBkAAD0tbB0CMCADHwTBBC5HDgsMMKuXTTMoAPOCIAAbVaQwICZNoAF1JQaVLDCysAnQgAAyCBCJNEUPLaewtJAazbIMiBAGlbQBV6KKckGsavT7I0hkzXXPcnM5PkIFoXAGQMFolx8+8dAgYrBDXE0414Ya4GE1Bp2QfUVWADhhW7ENHPwZytx7IKM2S0gZrmhg6nGybkDqVzqncoNMAARnsFp-QIRpvW++wfpu2btHux6DBeyo3NqAGsE+0MxyjWN4xVctKxwVNprBnQrWBvtl1xiGJqh164MDb0iCRkUxRRuN3wrZNsaJu78ZBwqwEAtajDgXy7r54C5DAYbvKFyLybxSmEZpiN6ZDJkADctoZdBU00plLVZdlOQ+z74s9WmJSlGV5VIRnMewAB+HVTf1Uh0Pba0IFte00GwIqNeZbWOS5KmDcS68x1tvUDSVdGPxwG2TdDh3TQwrCbTtB0PZdMBNZZNlfdu8GrQD2HCGDmOzYSgvw8TJnP2j3US4gR3MI7F3k-dz3NK5+ruqawBoORyQBTay67revb0hHEAMCVAGq5UzAGPIwAVby4ni+IE4AhJEsSJLkKSZIEIwAHcWTkhSVJHiB2Nn+feP4wTVVX8TJOk4AjHtA7P3pCBHEAF7NACxNGxz8Xq-hNErfDeB8lKqQcmAIAA)
 
 实现一个通用 `MyReadonly2<T, K>`，它带有两种类型的参数 `T`和 `K`。
 
@@ -576,5 +582,134 @@ type AppendToObject<T extends Record<string, any>, U extends string, V> = {
 ```typescript
 type AppendToObject<T, U extends keyof any, V> = {
   [K in keyof T | U]: K extends keyof T ? T[K] : V
+}
+```
+
+## 529・Absolute ⭐
+
+- [接受挑战](https://tsch.js.org/529/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCsBMCcEC0ECCAjAzgewDYFcAXAU0mSQsrPQE80A7AEwCdi6BpZgQxwDdMA1nQAUAAXSsAzAAYB3AGzwAxpgCUEAMSBaOUCS3poC2XQgAtNJfQAdcR4klwBLEt1xkyG9xEAZGYDu3V1EB52oANzoAAcoBUcoClxoBsppiEzPb0AOYANPT4+ujEzIBoRuj2CQCS9ISA3j6A0eqAQ8qADqaAIW4ABhg4BCS1ZUmAK-GAe2phgMbWlYDq2oBk3oBMcoBADH4QgNHygEGa47VzhJhkhDQWxBAAKsQxEAC8yACM0tIA3EsrawBKW-i4hLtoWHhExAA8mzEAfMcQwMAQxAAPVZKEiMCCEbAQDIQABEh2kMLIc1q4w+EEAFOoQADijmM+HQEEAUHKAU-NANDugCx-4yEQgWTAALl+CyUxgAdAArTAs7DMBLAODwYAAL2MSAAwgA5MAgYBgMCgCAAfSVypVyoggAN5aqAY7lAIAeitVBoVEGlsuWqwejWeb3+AJITEwEFS6UyEAAPhAYnFEm6oXl4oQ0XtagASADe6wAvrUbXbGA7akgw-EAGYu8VpKMQAD8EBDofT+kzdNzYcjKLlIH1hpVEEA0raAVejABSuEyr1aVxpl9ks3LuZrWoYgAFEAI74Li4JJDoHEEEQCMQZPMbD6CAAclEfaQzPHuGIiS2wCI9lwmFXpvOECUPC29wA2mRB9OQS8R2PcC8Gk8SC9pB9J6vpFXD4-wfJ9CBfUdxw-R4mleJBf3-QDgKSUDgXA18oM-WCXkOP810OICQKgR80Igt9oMtb8kGgPDV2gQiUOIsCyMwmCrQAoDEIY1CZ3QyD3yw9j4M4tckKIqdSIwgS2O-VcCNo+TxJI3iWOkyjXlXaiRLo7imMk-iKK-OD9gVI5pFMo56AUsyzN0iSVKkwzsPgBV4Dcqz-zctzuIAXVleU2xrQBoOWCQBTa1bNsOwrMg0UAMCVAGq5TVAGPIwAVb0palaQZYAmVZDkuR5PkEGALh6EwAB3TIhRFCUYogMlUvSml6UZTBmXZTluV5flgEo+xsFK2rABezQAsTR8RrMpatq8s6qqxUlE0gA)
+
+实现一个接收 string,number 或 bigInt 类型参数的`Absolute`类型,返回一个正数字符串。
+
+例如
+
+```typescript
+type Test = -100
+type Result = Absolute<Test> // expected to be "100"
+```
+
+**正确解答**：这题想必不用多说什么，看代码就明白了
+
+```typescript
+type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer Num}` ? `${Num}` : `${T}`
+```
+
+## 531・String to Union ⭐
+
+- [接受挑战](https://tsch.js.org/531/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCsDMCMEC0EDKAXATgSwHYHMJ0B7CAVV22N0mSXodoCMBPCAQVwBNMBTNgNKYAhgGdiAN1EBrNgAoAAkz6wADNJEA2AJwBjUQEoIAYkC0coElvEwFdK1E6Kx58tWsbcRAGRmA7txdRAedqADc6AAHKAVHKAYDqApcaAbKaADEqAIW4YOASAQ8qADqaANvGARsaAXHKhgOragLPWFFS4cYDePoDR6oBADL4QgNHygEGatQAGreiitOgsAA68EAAqvA4QALwQAOTwAEyw4wDcnT19AEpDVgA26KNojgT9xMXUADyDDgB8cxDAwBC8AB69uui8XESkTH0ARPCfEAA+EE+U1+AM+sE+tFazVqZwggAp1CAAcWw6AAFlYmBBAFBygFPzQDQ7oAsf9R6HQ3VEAC5ru1dKiAHQAK1EtOImHwwDg8GAAC9UUgAMIAOTAIGAYDAoAgAH1pTLZTKIIADeTigGO5QCAHlK5ZrJRARWAur0dkl8PtDrgjolbndntxRBAHEbYWMLfdrVxbc0ACQAbzwADNeJgIAAxAC+3r9AYgqwcIeaAH4oEH-oanCbbGbo+hYeSILheBIA2KJVrNRBANK2gFXowAUrnUNSX5brsABbbosrb6vpeiAAUQAjlZhOsADQ9h68J4QEMQX2YYhNiYKDtIGmD9a8AhDYBWdDYdaicZijsQXRiIbbADatG7Y6eRz7A-W5t2xoO6aO43GZxHeYLmDOX6vG90DvftByfI00xKd90E-Edxhg-8h0Ax5gPvMDElTV8oPGVFeHWdZiFgiZUXGZNxl4UiAXGdZKImGiyMIxDkPHVDQMfDC9iw45xl0FlqGECRsEwKx9y-CZdFo8ZCLIzBJOkqjcEk4RJIkSTsEk2SyKsSTRIAgBdIsQDrettUAaDkgkAU2tjPrHVRVAWhYUAMCVAGq5JVAGPIwAVbyJEkyUpYBqTpRlmVZdkEGAYRcFEAB3ANuV5QUHIgfFPO80kKSpUQaQZJkWTZDlgHEdZtxKDooFhQAXs0ALE1vFS3yMqyoLcri-khV1MAgA)
+
+实现一个将接收到的 String 参数转换为一个字母 Union 的类型。
+
+例如
+
+```typescript
+type Test = '123'
+type Result = StringToUnion<Test> // expected to be "1" | "2" | "3"
+```
+
+**正确解答**：经典递归
+
+```typescript
+type StringToUnion<Str extends string> = Str extends `${infer F}${infer Rest}` ? F | StringToUnion<Rest> : never
+```
+
+## 599・Merge ⭐
+
+- [接受挑战](https://tsch.js.org/599/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCsCcsQLQQLIFMBOBzNkmIMLwCMBPCALQE0BlAL1IGcIAKAAWvqYEoIBiQLRygSW9+Ae2IArNAGMALnjx8lEQBkZgO7cFUQGA6gEjlAVHKBvH0DR6oAgVQG56gBCNAAHKGjgGH-ANN6AYuVuAQt0B0qYCx5QGGRgNbcHNsYegEAMmhCA0fKAQZphAAZxsox4sqQADmgQAGaiohAAvBAA3nhQAHYAhgC2aABcEIyyGACWJVgA3MUQZTi19U0t7VAAvmHJaRDS2XmFHV01ECUArhXEmANQdWgAHj0NzVh4w1BJqekASmiMCwA2slPo2GgAPFmiADQTogB8rRDAwBBbNJyNAAEwgshyK0K5SqOz6WFenW68yWKwwiMYWzhe0OEDiMTCnwggAp1CAAcUasgAFgtiBBAFBygFPzQDQ7oAsf6pslkKUY1T+CWkVIAdBJGILRNhgHBYMA6FTEABhAByYBAwDA6tAEAA+jrdXrdRBAAbyrkAx3KAQA9tfqrVqIKr1aN0vccI8AGKImhE-JFKAAbQA0mhyM0IABrQOiDIQF0QAA+ofDkZoAF1agHyFtZGgSiDmGHSBGIDQIAB+Qv+wNJiCpwMAzaZ7O5hNRktR8ukSu1EpoABumDAwzAmutVoggGlbQCr0YAKV3CluHBrtjQqKXFtwdhQgAFEAI4LMpXREbzZA26DTIYUQVCAAcjYDsQAr3VyzOEYwAWskaV0YV-tJyjky9PAyk7VE+ygYhsRafswDXAAhMoMCmb0IAglFljA8ZamIbInzKEpoJgv9pDKTFmHyH08EPY9Hm3XcrkeJ0nhdbJEXgjBPkRZCoGAtC0Q6VDFnQjAOmkLCcLQPCDk+DiwCTdUNRAWc5xtQBoOSsQBTayUudbTVUA8CJQAwJUAarljUAY8jABVvdlOW5XlgH5IURTFCUpWAPDGAAd0wGU5SVfSIBZCyrK5Hk+UYAVhVFcUsEleBgEYUQrnfRpRBKRIoCJQAXs0ALE11CCmzQvCxyou8hVlTtMAgA)
+
+将两个类型合并成一个类型，第二个类型的键会覆盖第一个类型的键。
+
+例如
+
+```typescript
+type foo = {
+  name: string
+  age: string
+}
+
+type coo = {
+  age: number
+  sex: string
+}
+
+type Result = Merge<foo, coo> // expected to be {name: string, age: number, sex: string}
+```
+
+**正确解答**：取出 `F&S` 中的所有 key，优先判断是否为 S 中的键
+
+```typescript
+type Merge<F, S> = {
+  [Key in keyof F | keyof S]: Key extends keyof S ? S[Key] : Key extends keyof F ? F[Key] : never
+}
+```
+
+## 612・KebabCase ⭐⭐⭐
+
+- [接受挑战](https://tsch.js.org/612/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBsCMBMEC0EDSBTARgQ0wYWwGd1JklyLTMBPCAKQHsALAO0IZYjyYFcIAKAAIArZmw4BjBgBN0TANYBKCAGJAtHKBJb1UAXdAFsADgBtsupEYCWugE7YjpUiqcRAGRmA7twdQASumPYJ6BDaTIEABhLYeuhGBMShEAzWEKEACkQRMUTo8YTa1hYsAOYQAO5WTMnyWLhIEXEAdJ7JAGIMDABC2NadAF7xSAB8yQBmbUg41uPYfU2tSegAHpHGJFCkoRvahKTa1AaBrR1dvRAAvGjV+FkAPABEh53d07cDANykUmzaEKMMEzg9ABcEAex2mZwgt1+U0mANu7zWUF2+wgABEGAA5BjBArFc4YHBXYh3aQMJAsbFMXEvBEQT65CCkrE4orA9HMqlFCG3UnkynU2kbUJNIaACnUIABxco8TAQQBQcoBT80A0O6ALH+mNptAZCIDgMAthImPVhIR6olCsA4PBgD0mEg8BiwCBgGAwKAIAB9T1e71eiCAA3lACFugGO5QCAHh6fRH3RAnS7kYECbhYuhrgBlAA0EAAkoRmhZrAzznkeOghucUxBFroWNJCMkACQAbwKw3QSWaAF9G83WxAfLl28KoAB+EEVhZVmsQACqBn21jqyeaA1Iw6zObzDMr6GrtaLqygB5HoUbABkGCVWwvrkvOw2E0Tk33tBnhnZiAMByuD8DQkhT+fLxuG9G3vJNrifF83xLT8DwgYFQJuCCfig5coGBFMXTdSMIwgQBpW0AVejAApXQBo+XDbDfRjCxDESb44wgBsIAAUQARx4OwM0YhZ9gkb52x+awGD0CAAHJBDjWomDsIxt0KdBCGAHhtAsIxCGE2M9kCBda3OABtUhOO47RrhYtijGuBDiWE0Enh6YSBgzYToQmKZbIGez9K49AeOM1i7HMy4wMctpHl6OyHKcroXLs9yoAMryjJMvyLOTIKyQmMKRIi6xorTDzDJ80z-MJQLfnddL7Mytoyq6HK8vigqkoCm4rLGR4MtS8hypipjPO8xKzOS65hIAQXaPB2uwcZalq2LeoS3yBqayykHala3Ny2b8v6orE2a9qZp6raFp2h8hsAXg3ADg99rLtqgBdTCQDI8io0AaDlAAA5QBTaye8jo2dUBSCGQAwJUAarlA0AY8jABVvNUNS1HU9UIA0jRNM0LQQYBsDYC9rGtW17QBiBlUh6HNW1XV9UNY1TWsc1LWAdgjEUiwOG2KAhkAF7NACxNdxidhsmEYp5HqZxu0HRjMAgA)
+
+Replace the `camelCase` or `PascalCase` string with `kebab-case`.
+
+`FooBarBaz` -> `foo-bar-baz`
+
+For example
+
+```typescript
+type FooBarBaz = KebabCase<'FooBarBaz'>
+const foobarbaz: FooBarBaz = 'foo-bar-baz'
+
+type DoNothing = KebabCase<'do-nothing'>
+const doNothing: DoNothing = 'do-nothing'
+```
+
+**正确解答**：挺考验水平且实用的一道题，将驼峰命名转为短横线命名，Uncapitalize 是 ts 内置的高级类型之一，将传入类型的首字母小写
+
+```typescript
+type KebabCase<S extends string> = S extends `${infer L}${infer R}`
+  ? R extends Uncapitalize<R>
+    ? `${Uncapitalize<L>}${KebabCase<R>}`
+    : `${Uncapitalize<L>}-${KebabCase<Uncapitalize<R>>}`
+  : S
+```
+
+## 645・Diff ⭐
+
+- [接受挑战](https://tsch.js.org/645/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBBsAsCsEC0EAiBLAZpyyn4NwCMBPCALQE0BlALxIGcIAKAASrsYEoIBiQWjlAkt58A9kQBWAUwDGAF1y5eSiIAyMwHduCqIHbgwGvKgEjlAVHKBS40DHyoG8fQNHq-QCFugO91APAqA9HUDkBoCAGTRAAG32Q1yySAAdJCAAxEREIAF4IAG9cKABDAC4IBlkAJ3QAOwBzAG4EiCJU7IBXAFsiSQzCqABffyCQgCFEjOi4opS0zJyCoulUogiAG0lE7NxGqCbgiAAlSQYy0dkARk6MbAAecJEAGjaMgD4IYGA44tLK6oyDiCHisYnsiBmIAPmllbWAJi2WEwO2OB32ZwuVxKEHKVRqDyeIxE40m7w83k8HjOgAp1CAAcXQsgAFmUiBBAFBygFPzQDQ7oAsf6JslkgQYyQuvmkRIAdOIGJyRBlcsA4PBgLQiUgAMIAOTAIGAYAVoAgAH1VWr1WqIIADeWsgGO5QCAHiqNcblRA5QqviFtsCAPIQSQAD1kkmyABMmEtpPzXTt0lk8g9JiQTg8bZtHc63R6ZN7fX0AxAgyczjF4lAANoAaQgOQgAFEHdJRmVXZIdgBrSQkESYFh2gBkEDDXAelerteYdoAPk31lwTgBdVKdiCN5tZgdgRpgJUm40QQDStoBV6MAFK6AaPkjXPNeb0BVAvzZJ9mlc8wBHMqJUYPAvBOTvCCYDIiCoQADkrEtSA5l-GeWWwDKWR0FGBhXwtY99k6NMYUSCpJFSP1+lwRJcng3p-VyKcwEtCBjig3BslgtDELyZDUIQ+NMKgVC3RqG44QyLCcIlCJ8KgQi4IojDcBo0sMnou4sOw49pESBhlk6dNcBvGRZB2M8L1GHZrT2CIHmOEMrl4uiYVuGp3mTA5pIdW85IUy9lKBEF2gecEHliCBtP43SGIMkNjNM+TzwslT9geFiRE0hyUOIyj8kcl0+IE-T6kMjzZK8xTLN2ALbIiILE3I9D+nCpzoo6WL3MnBUZxATct1NQBoOUAADlAFNrcqtzNeVQFwM5ADAlQBquR1QBjyMAFW96UZZlWWAdkuR5PkBSFBBgEmBgAHcalFcVpVaiAaT6gamRZNkGA5bleX5QVhWABhkUA9ARGyPwoDOQAXs0ALE11E2oadr28bDqWyUZXNMAgA)
+
+获取两个接口类型中的差值属性。
+
+```typescript
+type Foo = {
+  a: string
+  b: number
+}
+type Bar = {
+  a: string
+  c: boolean
+}
+
+type Result1 = Diff<Foo, Bar> // { b: number, c: boolean }
+type Result2 = Diff<Bar, Foo> // { b: number, c: boolean }
+```
+
+**正确解答**：巧用联合
+
+```typescript
+type Diff<O extends Record<string, any>, O1 extends Record<string, any>> = {
+  [K in Exclude<keyof (O & O1), keyof (O | O1)>]: (O & O1)[K]
 }
 ```

@@ -60,11 +60,11 @@
 - [x] [459・Flatten](https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md)
 - [x] [527・Append to object](https://github.com/type-challenges/type-challenges/blob/main/questions/00527-medium-append-to-object/README.zh-CN.md)
 
-- [ ] [529・Absolute](https://github.com/type-challenges/type-challenges/blob/main/questions/00529-medium-absolute/README.zh-CN.md)
-- [ ] [531・String to Union](https://github.com/type-challenges/type-challenges/blob/main/questions/00531-medium-string-to-union/README.zh-CN.md)
-- [ ] [599・Merge](https://github.com/type-challenges/type-challenges/blob/main/questions/00599-medium-merge/README.zh-CN.md)
-- [ ] [612・KebabCase](https://github.com/type-challenges/type-challenges/blob/main/questions/00612-medium-kebabcase/README.md)
-- [ ] [645・Diff](https://github.com/type-challenges/type-challenges/blob/main/questions/00645-medium-diff/README.zh-CN.md)
+- [x] [529・Absolute](https://github.com/type-challenges/type-challenges/blob/main/questions/00529-medium-absolute/README.zh-CN.md)
+- [x] [531・String to Union](https://github.com/type-challenges/type-challenges/blob/main/questions/00531-medium-string-to-union/README.zh-CN.md)
+- [x] [599・Merge](https://github.com/type-challenges/type-challenges/blob/main/questions/00599-medium-merge/README.zh-CN.md)
+- [x] [612・KebabCase](https://github.com/type-challenges/type-challenges/blob/main/questions/00612-medium-kebabcase/README.md)
+- [x] [645・Diff](https://github.com/type-challenges/type-challenges/blob/main/questions/00645-medium-diff/README.zh-CN.md)
 
 - [ ] [949・AnyOf](https://github.com/type-challenges/type-challenges/blob/main/questions/00949-medium-anyof/README.zh-CN.md)
 - [ ] [1042・IsNever](https://github.com/type-challenges/type-challenges/blob/main/questions/01042-medium-isnever/README.md)
