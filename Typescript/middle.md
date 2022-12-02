@@ -30,6 +30,12 @@
 - [x] [612・KebabCase](https://github.com/type-challenges/type-challenges/blob/main/questions/00612-medium-kebabcase/README.md)
 - [x] [645・Diff](https://github.com/type-challenges/type-challenges/blob/main/questions/00645-medium-diff/README.zh-CN.md)
 
+- [x] [949・AnyOf](https://github.com/type-challenges/type-challenges/blob/main/questions/00949-medium-anyof/README.zh-CN.md)
+- [x] [1042・IsNever](https://github.com/type-challenges/type-challenges/blob/main/questions/01042-medium-isnever/README.md)
+- [x] [1097・IsUnion](https://github.com/type-challenges/type-challenges/blob/main/questions/01097-medium-isunion/README.md)
+- [x] [1130・ReplaceKeys](https://github.com/type-challenges/type-challenges/blob/main/questions/01130-medium-replacekeys/README.md)
+- [x] [1367・Remove Index Signature](https://github.com/type-challenges/type-challenges/blob/main/questions/01367-medium-remove-index-signature/README.md)
+
 # 解答
 
 ## 2・获取函数返回类型
@@ -712,5 +718,143 @@ type Result2 = Diff<Bar, Foo> // { b: number, c: boolean }
 ```typescript
 type Diff<O extends Record<string, any>, O1 extends Record<string, any>> = {
   [K in Exclude<keyof (O & O1), keyof (O | O1)>]: (O & O1)[K]
+}
+```
+
+## 949・AnyOf ⭐
+
+- [接受挑战](https://tsch.js.org/949/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCcAs0QLQQIIDsCeB5AZpJihR+ARhhGgK4A21EAFAAIDWGaApjpcwJQQDEgWjlAkt4CAhgCcJYjPnz8FEQBkZgO7c5UQBTqgbx9A0eqBvn0D7foMB52oAbnLYB55QHFyEAAoYALgAsA9mgiCIAAzGYvEQF-FQAdTQCAGXUBS40A2U0AAOUAqOSDAEb9AGH-AIM1AHPNEwUBvuTjAYUVAAl9ALjlAfHckwEwlQBX4wD21bwcJSnYvJMAyFUqarxwxagBnRpD0xMLALy8k6u9Onr71CEBo+RTALH-pr2WHbvwHDAAHdggAZTEAW03qdgBGCABeVExcAB4AbVOAGggAcleXid6X+4BdF4A3gBfX4APggwGAEHYAA9tgBjBzsAAmEAcLggJB2dQaADp1lsdvsjicAEyXa7YHAPAAML3eny63wgf0BIPBkOhcPYiJRaIxWIgX3Y+Kgyy803BGggAHEAJbOSgkCCAKDlAKfmgGh3eZOBwOTbdABckNW8KcuIAVt1cS4JABzYBwaDAABeTkQAGEAHJgEDAMD+0AQAD6IdDYdDEEABvKAELdAMdygEAPYPh5NBiC+-0bbYQACS3QAYkz2LcACrgq7FrlItDI7pCwsQAA+EBpjber1bf1bAJZtggcvctgkLm2Eg2AGl2BhfgaKOwAG7sCQQIGtyjVzj9vlNqi0CAAfjR9R2M+FYEzO3QVJLlfY1drEnYYmRbmo5F8GD+ZYgFdhVZrLP7HBFwgPMXlxcDAOAgAlX59wYXMC0mW483BX9b3-HEdgPS87ig8EZ0wvgT0LAMQCTFMwwgQBpW0AVejAApXGZyIokM0z9OUjhtBw0UJCBuwAUQAR0oLoXj47lEWXIUhwON5GHPRBTS6E40FtdhumASgHDlHpXgzHj4TEXpayue58DEhEHFuQThOoW4cOpR56SRboHA+Q8Gh+U5-l4ihDnYGdXmc1zl0BCBTgCoL23ZF5MNBUEnjM8TLOsro7JuBznjbRlJh+bzgTBGKjzihKoHMnlkqE1L7NpJy1Nc7LmVZXjovc9hisSiyrMq2zqvuOksta3K2QK1r2tKpKupstKrz6+k3OFTy8pa2L4o68rJqq9KaoGhaWTy3yDn8t5IuXEaVpKiAysRDaeq22adsLIafPC466qis6itW8bOpS26Zv6hk6xyvbQrQPyIrekLnohlz3vi0avsuibfumu57sB3amuBF412RDcOGRF4d2oEbhTGpGfu61GHNJwt2t+f1SKY5iIEAaDlokAU2tmYo1iwFAfBwUAMCVAGq5GNAGPIwAVb21XV9SNYATTNS1rTtB14GAXxugAd0XF03S9AWIE1SXpb1Q1jW6U0LStG17UdYBuhcahNLlNw1igcFABezQAsTVUE3ZfNy2lZt3WPW9dMwCAA)
+
+在类型系统中实现类似于 Python 中 `any` 函数。类型接收一个数组，如果数组中任一个元素为真，则返回 `true`，否则返回 `false`。如果数组为空，返回 `false`。
+
+例如：
+
+```typescript
+type Sample1 = AnyOf<[1, '', false, [], {}]> // expected to be true.
+type Sample2 = AnyOf<[0, '', false, [], {}]> // expected to be false.
+```
+
+**正确解答**：主要难点在于 IsFalse 的判断，如果写成 `{}` 而不是 `{ [P in PropertyKey]: never }` 的话是不行的。
+
+```typescript
+type IsFalse<T> = T extends false | 0 | '' | [] | { [P in PropertyKey]: never } | undefined | null ? true : false
+type AnyOf<T extends readonly any[]> = T extends [infer F, ...infer R] ? (IsFalse<F> extends true ? AnyOf<R> : true) : false
+```
+
+## 1042・IsNever ⭐
+
+- [接受挑战](https://tsch.js.org/1042/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMAMAsAmCBaCBJAzgOQKYDdcAnSVFci0gIwE8IALASyIHsaBDCRxgLwFcA1pwAUAASasO3fkICUEAMQBbXABNGfJYr4A7Rix3aALowA2mUqQXWIART65MJg5ajolAB1O4VOoxE4jGg9cDBwCYgAaCAB3JgBjeggjdgFHLh0PPn8gkIgAAwAVfIA6UnQAM2T6UNzQliqiRxZTQkxklgKdCKJ86KajPiJDfKMiBz6IFiMaohjGTFD8ivZzXFLXCAAxFiIIXAAPdk9vAC5N-MujCyg6iABBCABeMLxCIgAebveAPihgYD7A4heJGNQdCBUWrjXCkO4AIWerx6H10qlwFUY3VUfwBQJBYNUEKhEBWazhwVCAGEkVg3sQvnxTKZcYDDgTwUZOiSyYsKXkACK08LvD4AbQAuqz8bhQZzuaFebDbpSIABRYX0z46TRQojS9mywnExWrPlQS75TZ-ABqjFwMSmhgA4owjAAJPhUU4MIxGDyYU4A66JEoAK0wJV2AHNgHAkGAQMAwCnQBAAPqZrPZrMQACaLCGECpLHREHdxFCOermYgSZTdzpKMKfxeYsKEqBYJ0qnaYu+xE7AH5kjCID6lamQBmazmIIVHP4qexFu1Z3P64xPLscqqAN7qgCOfFW0TVwKNEAAvqTWFoAOSiOooRKrbw6aOOYDZMyYe8N1V4hXdI21Ic8CQ+NVj1WD4m1FAd9WiMYHB+H5IjAi9QUg6DTFgkUGQQiAAB8ICcIgsWjNDSTNXBUPQqBwKNbCT1wuCGXve8qKVOiMIgqCWLwrVUR7DEsTULiaJ4hjMKMZiYLY7UmRZaJuLQ3imP4+T8M+SUJLWKT1RkuTWO0j49yvPTFh4iUUynGd11rLYhhmYgIAAZTBAN7Icutk1AUg-jc+h2CaCAaELPZMBaH8DEDX1-UDYNMFDCMoyIWN40QYB2B0TAYmIAKIDtB1SOi5xcp9eg-QDINgBDehw0jGM4wQLKotMGLcsKgBZXZqWC5lcA-RxKuqxK6uShrUpjRNkzAIA)
+
+Implement a type IsNever, which takes input type `T`.
+If the type of resolves to `never`, return `true`, otherwise `false`.
+For example:
+
+```ts
+type A = IsNever<never> // expected to be true
+type B = IsNever<undefined> // expected to be false
+type C = IsNever<null> // expected to be false
+type D = IsNever<[]> // expected to be false
+type E = IsNever<number> // expected to be false
+```
+
+**正确解答**：在小册中也有提到，为了将联合类型也能正确判断
+
+```typescript
+type IsNever<T> = [T] extends [never] ? true : false
+```
+
+## 1097・IsUnion ⭐⭐⭐
+
+- [接受挑战](https://tsch.js.org/1097/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMAMCcB2CBaCBJAzgVQHYEsB7XSVFci0gIwE8JcBXAGyYgAoABKgU1wGNCAJwCUEAMQBbbgBN8DCeIYFipUmPUQAig26YALkRJRS6CQAcm3Kbj0QAhhD00z3CAAMseQ24A0EAO4AFvh8gY52ANa69rgQ+LhmDLZOLu4AKm4x0hCC3HoMgriYAYF5pYLpmbmYhEwAbtF6hPYQSoaOztwAdKpQAGJCENwAHnbmlgBcpMZQUG7zepjTHal8dpjc0BAAvBg4yrgAPPqC8QDmAHxQwMAQAGZ2TBvLKa5rGwBMO3texMd6p1wZwAPowJDxBFcIDdHIIdC9OhB3twAMzfTwHQ4AbRO51B8ghAF0oTCHk9uMt5m5ehArgA1fDcfwQYgQADi+D0AAkGFQJhBAno9GZMBMbotQl0AFaYLpCM7AOBIMAgYBgMCgCAAfR1ur1uogAE1CAUIABhQjSVxc7i5bX6h1aiCq9WvH6YgCCfgAQt8PVddliPYShsM9LxpMUsbhuA1BCGAPz3R4bCD8j2h8O4SMQDNJthY70hkZZnNBxPJ8lp2E6UT8mNx9Wax0OiBpXS2M3raIt-XOtX4cxCZKIgDeEAAogBHBiPPwT4YuPi2AC+90EhAUAHIOK8UKFHpYgbpgEl8E8t67EcjioHSAul3pDtPZ0xDhjDP9AZc-GSNhcLh8e9F24ZdnxnR5332T9cSBCBgXoAlbUAmtuAAoCoAfUCnxfSCPz+Lc7C3eCIC3KhiIQrc+Ao0jpC3FCAR0dDgMfcDXyg34jiUK07niGQSMYFgSLqQh8GySj6L8Ri0MAljsLYvDoL+cc7H5WCzggNcEJU+skIqFcGLhGSMMnECwNwt98KOHSIHUgS9M0lC-2MuTzIgyylKOHEAXOezwVtYlfxTFzrluLsNmKIJbVcNIcl0WoGmKJoWlwYgUDaVlXh6TCzJw9yOMxOyEIbZCgvJZictYiyCpgny4IQpQIlS-xcCc4KKtMqr8qsr9fIQuxcBoNrytkyr5OqnqitIojhv-UbOvG7rPMOErITKuagMJJsQHtXsdQgPoCj0coIAAZXDEVdr2-sNXAKArlOwI7DtGgTQqGomDPYhRQFIURTFYAJUCaVZXlRUEEQYABswfxbVIelGWZD6vqKflBWFUVxUwSUZTlQQFSVSHkYMb74YgABZIRXDNJ6WF4M5dDRv7McB7Hgdx+UVTVMAgA)
+
+实现类型 `IsUnion`，输入类型 `T` 并返回 `T` 是否解析为联合类型。
+
+例如：
+
+```typescript
+type case1 = IsUnion<string> // false
+type case2 = IsUnion<string | number> // true
+type case3 = IsUnion<[string | number]> // false
+```
+
+**正确解答**：还是小册中的示例 [套路六：特殊特性要记清](https://juejin.cn/book/7047524421182947366/section/7048282437238915110?enter_from=course_center)，利用 union 类型遇到条件类型时分散传入的特性，不过需注意的是 never 的情况，若为 never 返回 false
+
+```typescript
+type IsUnion<A, B = A> = [A] extends [never] ? false : A extends A ? ([B] extends [A] ? false : true) : never
+```
+
+这里的 A 是单个类型，B 是整个联合类型，所以根据 [B] extends [A] 是否成立来判断是否是联合类型。
+
+## 1130・ReplaceKeys ⭐⭐
+
+- [接受挑战](https://tsch.js.org/1130/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCM0MwAYIFoICUCmAHANgQwGMMBpDATwGdIVla7qAjMiQRliWIAKAARwFcd8TAFa8AdhgCUEAMQBbDABMAlr1kyA9gyEYCAF2QBrclSjVp5iAEVeGCrqXrR1agElZuDPNG6IeCLrIsDHRsfCJSSgAafwALPB8AJ1DCYKNKCCVRCDEHLICgimilADMICnV5f0DguIoIUXUfXRilOrTokTsygyUsCCTcQkyAc0jqAEEqoP88IzrmpOC8BOHVDG8KADoIZ1MoADF1BIgMAA88dxwMAC5diAADR90TKeCAOXUFDEmAXggAb2oUHyNwgAHJxmCgfULqC7AkRtDivhhtd6qoGBgEtQAL53EEQD5fABCED+gKgwOqaLBxKhlIyCjRogxWKRKOZrOxUDxe1ehM+GAAwmSAdCQTShfTKaJYWj4YiGci8Kj0bJMdyILydnyCUTbKL9ZMAD4CkkQU36oX46ohQZEBT6up-TD2kjGAA8TuiYNl8jBFvByuGYOi-z9oJZ6qx0WD8t0CNEwxxAD4IMBgACJeDIdEI5zowlYxyygmRjjA-9s7TQ4yCxriyr44nk5Xq1K83K1Q2IHHSy2KxmIAB3dT8BT9ZJEGGVYoJCr9kb+dTdmOTt29lG9+dqKMa5eLpObG3TV1hRQfXQAUVOrV0EWddvPD69gsK4Ijtf+eDw9axqfTTMq2pHNa3zeoMAANzXPs93-QN9VJU1gKCSUwK7cRoKLTcm1XBJB0zUdx3Xc8Z2CXQV0wtkoEee47jTAA1JQMGHCBHAgABxJRdAACV4Bg0RiXRdCwChrgzZ4CBiTYhC2I5hmAWBEDAEBgDAdTQAgAB9HTdL03SIAATTHY4hUFCAeKxYJ9JsnSIFU9SCTPFIXwAeS0aIH2iAAVZY0z+dyhBOU5dHWBQ6kC6gAH4xQZKAAG0IgyLI0nUUpAoAXTRJKzlC0RwogB8IBijgcpCsK2nINKIF844YtqxLyAyiBmSgrEpDRQLGrIDLoW1TqtA0kBtNs-SatsHwhTwCgDVGsaHKUdwjiaW1-ggK8AEdeDwHBohvII9C1bcFzBLgQWQKSdquJNbGAXh7BwCgoTAPVBV+WLXhpSFqHAhUk2oWCuTAPEXttRDRQpT7wTpaglCZPCAZLODsRB16vhFclqHbaVfrLf6oEBwtgcc21nIdI0IaxkCIRxjCgYJks-uGYnQdPKcL0FUlMapVDoelOG-01PsmZZpz2cdQUMY+7GfrpomGdwkXUbB9Q3lhCnuahmnEdw5HZfkVqsNFlW1fkK1KZ50EwSlHXVT1qBwKolGSemJ1DTehDOc99HWeCMmOa+R9-Ylr4TSfFIQ4wJDw-JyXfbNWwPlN4I-iT9WPctVX0-R72o5d4ICGmg0-ni6h9p0XQPU27acA9f2X29D9YQDU0wWDL8yMFgBuHDVSZrUU2iYOnRTQey9OA7K+rna6-Zhu3x9T8w18X88IH6InTT+RR7GXr1LATS5r0iB9l4BJmixCAAGVQtEkaj60+y1NAag0yvuIkggMgTLKdQ+HsRwYkIBCREmJCSFApIyTkisRS8AEDADwKICgw5qIQEYsxVi5R-65CASA0S4lgCSWkrJTY8lYGIGAFg+6ODX4QAALJHGCEKOIAh1jDFsIJYS+DwGQJIfJFSakwBAA)
+
+实现一个 `ReplaceKeys` 类型，用于替换联合类型中的键，如果某些类型没有此键，则跳过替换，`A` 类型需要三个参数。
+
+例如：
+
+```typescript
+type NodeA = {
+  type: 'A'
+  name: string
+  flag: number
+}
+
+type NodeB = {
+  type: 'B'
+  id: number
+  flag: number
+}
+
+type NodeC = {
+  type: 'C'
+  name: string
+  flag: number
+}
+
+type Nodes = NodeA | NodeB | NodeC
+
+type ReplacedNodes = ReplaceKeys<Nodes, 'name' | 'flag', { name: number; flag: string }> // {type: 'A', name: number, flag: string} | {type: 'B', id: number, flag: string} | {type: 'C', name: number, flag: string} // would replace name from string to number, replace flag from number to string.
+
+type ReplacedNotExistKeys = ReplaceKeys<Nodes, 'name', { aa: number }> // {type: 'A', name: never, flag: number} | NodeB | {type: 'C', name: never, flag: number} // would replace name to never
+```
+
+**正确解答**：常用技巧了，`Obj extends Obj` 触发联合类型的分散传入
+
+```typescript
+type ReplaceKeys<Obj, Keys, Tar> = Obj extends Obj
+  ? {
+      [Key in keyof Obj]: Key extends Keys ? (Key extends keyof Tar ? Tar[Key] : never) : Obj[Key]
+    }
+  : Obj
+```
+
+## 1367・Remove Index Signature ⭐
+
+- [接受挑战](https://tsch.js.org/1367/play/zh-CN)
+- [我的解答](https://www.typescriptlang.org/play?#code/PQKgUABBCMDMBsB2CBaCAlApgWwPYDdMIBJAOwBNMAPCAZQEsBzUgQwBcBXAJ00lRQGC+AIwCeEABb0uuUSwj16ALw4BreQAoAAlJlzFK9QEoIAYkC0coElvM7mEArTAGM2KVZlEBnPn1O+IgDIzAO7dvKGJsAAcAGxxMUjYIAAMsPEIySioGZnZuTAAeABUAPgSIABoIakdIjkoINgkiegpqCA8mVk4eCAAzGWwIWwdnOtFwzA8AOhCIADFcLgqqFgjogC5phM3ptlGiOdwIAF4IAG8+KABtN1FV1rYuJsYAXVuWUlEAbnOe3FwNI1u+Fw9HIXygAF9trsIABBI4YHAETBpaiZDo5XL7QpQYDARZjZyYcinH5-AEQIEgiCQqB8TYJabYwAU6hAAOL0eocYQQQBQcoBT80A0O6ALH+JGw2OEPKtcWwPI4JBM7JN5oxgHAkMAlBIUABhAByYBAwDAkDAoAgAH1LVbrVaIIADeUAIW6AY7lAIAeFptHvNEENxp2YwRKWRzQy7WyPAKizYsXIHgRjnm5FyHnuj3Kb1EhXKAAV4VmZGMuDsANLubHHM6XIsKUgQa64boQfIQFixnPUKMUWNVgD8EFImEIC1uVfb0dbEF7Vdu-cHL0bFyLTzAkNNIHdnutEEA0raAVejABSugGj5dcby3eo30CLzeJ+ognCAAUQAjhwWJFyveqAT4uCen0IAByLQbxQOVX2iUhGHGYAODYehIg8f9fWhfZ4QrCArncW5kweCC53TPhul+f5AWBchlyQ-0ACEWAWcs+Awm4+w4bBhEwLg8PeEQaOIilSL4AAGLCUwg8iwHjUhk1JYQaPhWhRBY3BIg0f9CNsGj-yMMAb1mX5qNo056OuLD5OERSONEejVOk9ieMpMiV206ilFQriuFsvioGkpQhJwxhRO0xwW3GeELj4D8v1yJ8X0iXJkiRFEQyyTo8ixco71U9yqXBQpMzCz8nDYSLn1fWLEVSYM0TDPI9MzElrMy0EIEEu5fOpHLSjyiKopKuLyvSSrksxXSaNqu8LismingatrcqgcKCqK6LSsDBKBoxJzRogeryTsj4tpYbyWseGaOqXY1V2PE8IEAaDlAAA5QBTa0ujcz1XPhsUAMCVAGq5R1AGPIwAVbxFMUJSlYAZTlBUlS4FU1UQYA3g8AB3NiNS1PU3ogQV-sB8VJWlWV5UVCZlVVBBYY8RSYPoXAJPRwAXs0ALE0gmx4G8fBwnic1HV9R9MAgA)
+
+实施 `RemoveIndexSignature<T>` ，从对象类型中排除索引签名。
+
+例如：
+
+```typescript
+type Foo = {
+  [key: string]: any
+  foo(): void
+}
+
+type A = RemoveIndexSignature<Foo> // expected { foo(): void }
+```
+
+**正确解答**：嗯……也是小册中的例子，根据它**索引签名不能构造成字符串字面量类型**的特点来进行排除，但是翻了翻解答，该题面有更新，已经加上了 number 类型、函数类型等，因此利用 PropertyKey 这个内置类型来进行排除
+
+```typescript
+type RemoveIndexSignature<T extends Record<string, any>, P = PropertyKey> = {
+  [K in keyof T as P extends K ? never : K extends P ? K : never]: T[K]
 }
 ```

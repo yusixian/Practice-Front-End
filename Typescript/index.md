@@ -66,11 +66,11 @@
 - [x] [612・KebabCase](https://github.com/type-challenges/type-challenges/blob/main/questions/00612-medium-kebabcase/README.md)
 - [x] [645・Diff](https://github.com/type-challenges/type-challenges/blob/main/questions/00645-medium-diff/README.zh-CN.md)
 
-- [ ] [949・AnyOf](https://github.com/type-challenges/type-challenges/blob/main/questions/00949-medium-anyof/README.zh-CN.md)
-- [ ] [1042・IsNever](https://github.com/type-challenges/type-challenges/blob/main/questions/01042-medium-isnever/README.md)
-- [ ] [1097・IsUnion](https://github.com/type-challenges/type-challenges/blob/main/questions/01097-medium-isunion/README.md)
-- [ ] [1130・ReplaceKeys](https://github.com/type-challenges/type-challenges/blob/main/questions/01130-medium-replacekeys/README.md)
-- [ ] [1367・Remove Index Signature](https://github.com/type-challenges/type-challenges/blob/main/questions/01367-medium-remove-index-signature/README.md)
+- [x] [949・AnyOf](https://github.com/type-challenges/type-challenges/blob/main/questions/00949-medium-anyof/README.zh-CN.md)
+- [x] [1042・IsNever](https://github.com/type-challenges/type-challenges/blob/main/questions/01042-medium-isnever/README.md)
+- [x] [1097・IsUnion](https://github.com/type-challenges/type-challenges/blob/main/questions/01097-medium-isunion/README.md)
+- [x] [1130・ReplaceKeys](https://github.com/type-challenges/type-challenges/blob/main/questions/01130-medium-replacekeys/README.md)
+- [x] [1367・Remove Index Signature](https://github.com/type-challenges/type-challenges/blob/main/questions/01367-medium-remove-index-signature/README.md)
 
 - [ ] [1978・Percentage Parser](https://github.com/type-challenges/type-challenges/blob/main/questions/01978-medium-percentage-parser/README.zh-CN.md)
 - [ ] [2070・Drop Char](https://github.com/type-challenges/type-challenges/blob/main/questions/02070-medium-drop-char/README.zh-CN.md)
