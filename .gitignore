@@ -1,2 +1,3 @@
 node_modules/
 httpServer/node_modules
+.vscode
